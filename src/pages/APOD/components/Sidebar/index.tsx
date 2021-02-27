@@ -16,20 +16,26 @@ const Sidebar: React.FC = () => {
         <span onClick={() => setBack(true)}>Voltar</span>
         <ButtonsContent>
           <Button
-            onClick={() => setActivePage("FirstPage")}
-            className={activePage === "FirstPage" ? "ButtonActiveApod" : ""}
+            onClick={() => setActivePage({ page: "FirstPage" })}
+            className={
+              activePage.page === "FirstPage" ? "ButtonActiveApod" : ""
+            }
           >
             Foto do dia
           </Button>
           <Button
-            onClick={() => setActivePage("SecondPage")}
-            className={activePage === "SecondPage" ? "ButtonActiveApod" : ""}
+            onClick={() => setActivePage({ page: "SecondPage" })}
+            className={
+              activePage.page === "SecondPage" ? "ButtonActiveApod" : ""
+            }
           >
             Fotos específicas
           </Button>
           <Button
-            onClick={() => setActivePage("ThirdPage")}
-            className={activePage === "ThirdPage" ? "ButtonActiveApod" : ""}
+            onClick={() => setActivePage({ page: "ThirdPage" })}
+            className={
+              activePage.page === "ThirdPage" ? "ButtonActiveApod" : ""
+            }
           >
             Fotos aleatórias
           </Button>

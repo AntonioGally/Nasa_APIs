@@ -13,9 +13,9 @@ const APOD: React.FC = () => {
     <>
       <Container>
         <SideBar />
-        {activePage === "FirstPage" ? <FirstPage /> : ""}
-        {activePage === "SecondPage" ? <SecondPage /> : ""}
-        {activePage === "ThirdPage" ? <ThirdPage /> : ""}
+        {activePage.page === "FirstPage" ? <FirstPage /> : ""}
+        {activePage.page === "SecondPage" ? <SecondPage /> : ""}
+        {activePage.page === "ThirdPage" ? <ThirdPage /> : ""}
       </Container>
     </>
   );
