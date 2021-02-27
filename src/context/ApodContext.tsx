@@ -17,6 +17,7 @@ export default function ApodProvider({ children }: any) {
   const [dataGetInformation, setDataGetInformation] = useState<
     apiStructure[]
   >();
+  const [formattedDate, setFormattedDate] = useState("");
   interface Props {
     date?: string;
     start_date?: string;
@@ -43,6 +44,11 @@ export default function ApodProvider({ children }: any) {
       const [PushUserInformation] = responses;
       const results = await PushUserInformation.data;
       setDataGetInformation(results);
+      var arr = [...results.date];
+      var year = arr[0] + arr[1] + arr[2] + arr[3];
+      var month = arr[5] + arr[6];
+      var day = arr[8] + arr[9];
+      setFormattedDate(`${day}/${month}/${year}`);
       return results;
     });
     return info;
@@ -51,7 +57,13 @@ export default function ApodProvider({ children }: any) {
   return (
     <userPage.Provider
       value={
-        { activePage, setActivePage, GetInformation, dataGetInformation } as any
+        {
+          activePage,
+          setActivePage,
+          GetInformation,
+          dataGetInformation,
+          formattedDate,
+        } as any
       }
     >
       {children}
@@ -66,6 +78,13 @@ export function useApodContex() {
     setActivePage,
     GetInformation,
     dataGetInformation,
+    formattedDate,
   }: any = context;
-  return { activePage, setActivePage, GetInformation, dataGetInformation };
+  return {
+    activePage,
+    setActivePage,
+    GetInformation,
+    dataGetInformation,
+    formattedDate,
+  };
 }

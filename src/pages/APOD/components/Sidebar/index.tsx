@@ -1,5 +1,11 @@
 import React from "react";
-import { Container, ButtonsContent, Button } from "./styles";
+import {
+  Container,
+  ButtonsContent,
+  Button,
+  SvgToggle,
+  SvgToggleClose,
+} from "./styles";
 import { useApodContex } from "../../../../context/ApodContext";
 
 import { Redirect } from "react-router-dom";
@@ -7,12 +13,15 @@ import { Redirect } from "react-router-dom";
 const Sidebar: React.FC = () => {
   const { activePage, setActivePage } = useApodContex();
   const [back, setBack] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   if (back) {
     return <Redirect to="/" />;
   }
   return (
     <>
-      <Container>
+      <SvgToggle onClick={() => setOpen(!open)} />
+      <Container className={open ? "openToggle" : ""}>
+        <SvgToggleClose onClick={() => setOpen(!open)} />
         <span onClick={() => setBack(true)}>Voltar</span>
         <ButtonsContent>
           <Button

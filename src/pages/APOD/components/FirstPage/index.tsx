@@ -1,10 +1,17 @@
 import React, { memo, useEffect } from "react";
 
 import { useApodContex } from "../../../../context/ApodContext";
+import {
+  Container,
+  TextContent,
+  Title,
+  Text,
+  ImageContent,
+  MyImage,
+} from "./styles";
 
 const FirstPage: React.FC = () => {
-  const { GetInformation, dataGetInformation } = useApodContex();
-
+  const { GetInformation, dataGetInformation, formattedDate } = useApodContex();
   useEffect(() => {
     const request = async () => {
       var dataObj = {
@@ -15,11 +22,20 @@ const FirstPage: React.FC = () => {
     if (!dataGetInformation) {
       request();
     }
-  }, [GetInformation]);
-
+  }, [GetInformation, dataGetInformation]);
   return (
     <>
-      <h1>{dataGetInformation?.title}</h1>
+      <Container>
+        <TextContent>
+          <Title>
+            {dataGetInformation?.title} - {formattedDate}
+          </Title>
+          <Text>{dataGetInformation?.explanation}</Text>
+        </TextContent>
+        <ImageContent>
+          <MyImage src={dataGetInformation?.hdurl} alt="APOD of the day" />
+        </ImageContent>
+      </Container>
     </>
   );
 };

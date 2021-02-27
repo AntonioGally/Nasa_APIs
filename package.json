@@ -17,6 +17,7 @@
     "react-scripts": "4.0.3",
     "react-tsparticles": "^1.18.12",
     "styled-components": "^5.2.1",
+    "styled-icons": "^10.28.0",
     "tsparticles": "^1.18.12",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"

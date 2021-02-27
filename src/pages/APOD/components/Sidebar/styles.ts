@@ -1,11 +1,47 @@
 import styled from "styled-components";
+import { Menu } from "@styled-icons/entypo/Menu";
+import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
 
+export const SvgToggle = styled(Menu)`
+  display: none;
+  @media (max-width: 1100px) {
+    display: unset;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    color: white;
+    fill: white;
+    padding: 5px;
+    position: absolute;
+  }
+`;
+export const SvgToggleClose = styled(CloseOutline)`
+  display: none;
+  @media (max-width: 1100px) {
+    display: unset;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    color: var(--background);
+    fill: var(--background);
+  }
+`;
 export const Container = styled.div`
+  transition: margin 0.5s ease;
   width: 300px;
   height: 100vh;
   background-color: var(--secundary);
   display: flex;
   flex-direction: column;
+  position: fixed;
+  @media (max-width: 1100px) {
+    margin-left: -300px;
+    transition: margin 0.5s ease;
+    &.openToggle {
+      margin-left: 0;
+      transition: margin 0.5s ease;
+    }
+  }
   > span {
     width: max-content;
     text-decoration: underline;
