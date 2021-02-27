@@ -17,7 +17,7 @@ html {
  * Remove the margin in all browsers.
  */
 body {
-  background-color: white;
+  background-color: #12202f;
   margin: 0;
 }
 main {

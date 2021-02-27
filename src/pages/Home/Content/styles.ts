@@ -126,6 +126,7 @@ export const Title = styled.div`
     font-size: 12px;
     margin: 5px 5px;
   }
+  text-decoration: underline;
   font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: bold;
@@ -139,7 +140,7 @@ export const Text = styled.div`
     font-size: 11px;
     margin: 5px 5px;
   }
-  font-family: "IBM Plex Mono";
+  font-family: "Poppins";
   font-style: normal;
   font-weight: normal;
   font-size: 15px;

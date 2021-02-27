@@ -15,7 +15,9 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-tsparticles": "^1.18.12",
     "styled-components": "^5.2.1",
+    "tsparticles": "^1.18.12",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },

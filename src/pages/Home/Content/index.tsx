@@ -23,6 +23,7 @@ import {
   Title,
   Text,
 } from "./styles";
+import { Link } from "react-router-dom";
 
 const Content: React.FC = () => {
   return (
@@ -34,11 +35,14 @@ const Content: React.FC = () => {
               backgroundImage: `url(${foto1})`,
             }}
           >
-            <InformationContent className="BigSquareVersion">
-              <Title>APOD</Title>
-              <Text>Astronomy picture of today</Text>
-            </InformationContent>
+            <Link to="/apod">
+              <InformationContent className="BigSquareVersion">
+                <Title>APOD</Title>
+                <Text>Astronomy picture of today</Text>
+              </InformationContent>
+            </Link>
           </BigSquare>
+
           <CardsContent>
             <Cards
               style={{
@@ -47,10 +51,12 @@ const Content: React.FC = () => {
                 backgroundImage: `url(${foto2})`,
               }}
             >
-              <InformationContent className="CardVersion">
-                <Title>Asteroids - NeoWs</Title>
-                <Text>Near object Web Service</Text>
-              </InformationContent>
+              <Link to="/neows">
+                <InformationContent className="CardVersion">
+                  <Title>Asteroids - NeoWs</Title>
+                  <Text>Near object Web Service</Text>
+                </InformationContent>
+              </Link>
             </Cards>
             <Cards
               style={{
@@ -60,13 +66,15 @@ const Content: React.FC = () => {
                 backgroundPosition: "center right",
               }}
             >
-              <InformationContent className="CardVersion">
-                <Title>DONKI</Title>
-                <Text>
-                  Space Weather Database Of Notifications, Knowledge,
-                  Information
-                </Text>
-              </InformationContent>
+              <Link to="/donki">
+                <InformationContent className="CardVersion">
+                  <Title>DONKI</Title>
+                  <Text>
+                    Space Weather Database Of Notifications, Knowledge,
+                    Information
+                  </Text>
+                </InformationContent>
+              </Link>
             </Cards>
           </CardsContent>
         </ContentContainer>
