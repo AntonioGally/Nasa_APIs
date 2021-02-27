@@ -17,7 +17,7 @@ html {
  * Remove the margin in all browsers.
  */
 body {
-  background-color: #12202f;
+  background-color: var(--background);
   margin: 0;
 }
 main {
@@ -242,6 +242,7 @@ template {
   display: none;
 }
 :root{
+  --background: #12202f;
   --secundary: #FFE0E0;
 }
 `;
