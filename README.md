@@ -68,9 +68,10 @@ O layout da aplicação está disponível no Figma:
 ### Prints
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./src/assets/readme/print1.png" width="400px">
-
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./src/assets/readme/print2.png" width="400px">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./src/assets/readme/print1.png">
+</p>
+<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./src/assets/readme/print2.png">
 </p>
 
 ---
