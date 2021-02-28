@@ -101,7 +101,7 @@ export const MyInput = styled.input`
 `;
 export const ImageContent = styled.div`
   text-align: center;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 3% 20px;
   > div > div {
     z-index: -10;
@@ -117,7 +117,7 @@ export const ArrowIcon = styled(RightArrowAlt)`
 `;
 
 export const MyImage = styled.img`
-  max-width: 900px;
+  max-width: 1000px;
   border-radius: 5px;
   @media (max-width: 1500px) {
     margin-top: 0;
@@ -132,7 +132,7 @@ export const MyImage = styled.img`
   }
 `;
 export const TextContent = styled.div`
-  max-width: 900px;
+  max-width: 1100px;
   padding: 10px;
 `;
 export const TitleCarousel = styled.div`

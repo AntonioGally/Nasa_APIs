@@ -16,6 +16,11 @@ import { Carousel } from "react-bootstrap";
 import { useApodContex } from "../../../../context/ApodContext";
 import lua from "../../../../assets/APOD/lua.png";
 
+import {
+  FormateDateInput,
+  FormateDateApi,
+} from "../../../../services/dateFormater";
+
 type TextForm = {
   startDate: string;
   endDate: string;
@@ -24,20 +29,7 @@ type TextForm = {
 const SecondPage: React.FC = () => {
   const { startEndDate, dataStartEndDate } = useApodContex();
   const [loading, setLoading] = React.useState(false);
-  function FormateDateInput(date: any) {
-    var arr = [...date];
-    var year = arr[6] + arr[7] + arr[8] + arr[9];
-    var month = arr[3] + arr[4];
-    var day = arr[0] + arr[1];
-    return `${year}-${month}-${day}`;
-  }
-  function FormateDateApi(date: any) {
-    var arr = [...date];
-    var year = arr[0] + arr[1] + arr[2] + arr[3];
-    var month = arr[5] + arr[6];
-    var day = arr[8] + arr[9];
-    return `${day}/${month}/${year}`;
-  }
+
   const SubmitForm = async (data: TextForm) => {
     setLoading(true);
     var start_date = FormateDateInput(data.startDate);
@@ -53,7 +45,7 @@ const SecondPage: React.FC = () => {
   const { register, handleSubmit, errors } = useForm<TextForm>();
   return (
     <>
-      <FormContent onSubmit={handleSubmit(SubmitForm)}>
+      <FormContent onSubmit={handleSubmit(SubmitForm)} id="FirstContent">
         <div>
           <Title>Data de início:</Title>
           <MyInput
