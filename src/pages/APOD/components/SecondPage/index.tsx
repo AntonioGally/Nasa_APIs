@@ -1,11 +1,14 @@
 import React from "react";
-
-// import { Container } from './styles';
+import { Container } from "./styles";
+import NavBar from "./NavBar";
 
 const SecondPage: React.FC = () => {
   return (
     <>
-      <h1>SecondPage</h1>
+      <div style={{ width: "100%" }}>
+        <NavBar />
+        <Container></Container>
+      </div>
     </>
   );
 };

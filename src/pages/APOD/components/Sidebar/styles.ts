@@ -7,12 +7,13 @@ export const SvgToggle = styled(Menu)`
   @media (max-width: 1100px) {
     display: unset;
     cursor: pointer;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     color: white;
     fill: white;
     padding: 5px;
     position: absolute;
+    z-index: 10000;
   }
 `;
 export const SvgToggleClose = styled(CloseOutline)`
@@ -20,8 +21,8 @@ export const SvgToggleClose = styled(CloseOutline)`
   @media (max-width: 1100px) {
     display: unset;
     cursor: pointer;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     color: var(--background);
     fill: var(--background);
   }
@@ -70,7 +71,7 @@ export const Button = styled.div`
   line-height: 23px;
   color: black;
   padding: 15px 25px;
-  width: 200px;
+  width: 250px;
   text-align: center;
   border-radius: 8px;
   margin-bottom: 32px;
