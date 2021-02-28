@@ -53,7 +53,7 @@ const FirstPage: React.FC = () => {
               <Text>{dataGetInformation?.explanation}</Text>
             </TextContent>
             <ImageContent>
-              <MyImage src={dataGetInformation?.hdurl} alt="APOD of the day" />
+              <MyImage src={dataGetInformation?.url} alt="APOD of the day" />
             </ImageContent>
           </Container>
         </>

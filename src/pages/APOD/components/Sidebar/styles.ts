@@ -13,7 +13,6 @@ export const SvgToggle = styled(Menu)`
     fill: white;
     padding: 5px;
     position: absolute;
-    z-index: 10000;
   }
 `;
 export const SvgToggleClose = styled(CloseOutline)`

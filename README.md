@@ -117,6 +117,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **[Styled Icons](https://styled-icons.js.org)**
 - **[Framer Motion](https://www.framer.com/motion/)**
 - **[React Form Hook](https://react-hook-form.com)**
+- **[React Scroll](https://www.npmjs.com/package/react-scroll)**
 
 > Veja o arquivo [package.json](https://github.com/AntonioGally/Nasa_APIs/blob/main/package.json)
 
