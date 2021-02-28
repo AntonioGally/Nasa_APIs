@@ -10,6 +10,9 @@ export const Container = styled.div`
     max-width: 85%;
   }
 `;
+export const Wrapper = styled.div`
+  width: 100%;
+`;
 export const MyNavBar = styled.div`
   width: 100%;
   display: flex;

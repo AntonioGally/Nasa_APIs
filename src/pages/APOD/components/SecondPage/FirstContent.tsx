@@ -159,7 +159,7 @@ const SecondPage: React.FC = () => {
                     </Carousel.Item>
                   ))}
                 </Carousel>
-              </ImageContent>{" "}
+              </ImageContent>
             </>
           ) : (
             <>

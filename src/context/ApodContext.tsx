@@ -19,6 +19,7 @@ export default function ApodProvider({ children }: any) {
   >();
   const [dataStartEndDate, setDataStartEndDate] = useState<apiStructure[]>();
   const [dataOneDate, setDataOneDate] = useState<apiStructure[]>();
+  const [dataAleatoryDate, setDataAleatoryDate] = useState<apiStructure[]>();
   const [formattedDate, setFormattedDate] = useState("");
   interface Props {
     date?: string;
@@ -102,6 +103,29 @@ export default function ApodProvider({ children }: any) {
     return info;
   };
 
+  const AleatoryDate = (data: Props) => {
+    const info = Promise.all([
+      api.get(
+        `/planetary/apod?${data.date ? "&date=" + data.date : ""}${
+          data.start_date
+            ? "&start_date=" + data.start_date + "&end_date=" + data.end_date
+            : ""
+        }${data.count ? "&count=" + data.count : ""}&api_key=${data.api_key}`,
+        {
+          validateStatus: function (status) {
+            return status < 501; // Resolve only if the status code is less than 500
+          },
+        }
+      ),
+    ]).then(async (responses) => {
+      const [PushUserInformation] = responses;
+      const results = await PushUserInformation.data;
+      setDataAleatoryDate(results);
+      return results;
+    });
+    return info;
+  };
+
   return (
     <userPage.Provider
       value={
@@ -115,6 +139,8 @@ export default function ApodProvider({ children }: any) {
           dataStartEndDate,
           OneDate,
           dataOneDate,
+          AleatoryDate,
+          dataAleatoryDate,
         } as any
       }
     >
@@ -135,6 +161,8 @@ export function useApodContex() {
     dataStartEndDate,
     OneDate,
     dataOneDate,
+    AleatoryDate,
+    dataAleatoryDate,
   }: any = context;
   return {
     activePage,
@@ -146,5 +174,7 @@ export function useApodContex() {
     dataStartEndDate,
     OneDate,
     dataOneDate,
+    AleatoryDate,
+    dataAleatoryDate,
   };
 }
