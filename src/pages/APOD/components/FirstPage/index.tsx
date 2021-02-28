@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from "react";
-
+import { Spinner } from "react-bootstrap";
 import { useApodContex } from "../../../../context/ApodContext";
 import {
   Container,
@@ -25,17 +25,39 @@ const FirstPage: React.FC = () => {
   }, [GetInformation, dataGetInformation]);
   return (
     <>
-      <Container>
-        <TextContent>
-          <Title>
-            {dataGetInformation?.title} - {formattedDate}
-          </Title>
-          <Text>{dataGetInformation?.explanation}</Text>
-        </TextContent>
-        <ImageContent>
-          <MyImage src={dataGetInformation?.hdurl} alt="APOD of the day" />
-        </ImageContent>
-      </Container>
+      {!dataGetInformation ? (
+        <div
+          style={{
+            width: "calc(100% - 300px)",
+            marginLeft: "auto",
+            marginTop: "10%",
+            textAlign: "center",
+          }}
+        >
+          <Spinner
+            animation="border"
+            role="status"
+            variant="light"
+            style={{ width: 100, height: 100 }}
+          >
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <>
+          <Container>
+            <TextContent>
+              <Title>
+                {dataGetInformation?.title} - {formattedDate}
+              </Title>
+              <Text>{dataGetInformation?.explanation}</Text>
+            </TextContent>
+            <ImageContent>
+              <MyImage src={dataGetInformation?.hdurl} alt="APOD of the day" />
+            </ImageContent>
+          </Container>
+        </>
+      )}
     </>
   );
 };
