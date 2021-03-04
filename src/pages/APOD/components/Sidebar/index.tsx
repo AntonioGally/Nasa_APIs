@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
     return <Redirect to="/" />;
   }
   return (
-    <>
+    <div style={{ zIndex: 100 }}>
       <SvgToggle onClick={() => setOpen(!open)} />
       <Container className={open ? "openToggle" : ""}>
         <SvgToggleClose onClick={() => setOpen(!open)} />
@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
               activePage.page === "SecondPage" ? "ButtonActiveApod" : ""
             }
           >
-            Fotos específicas
+            Intervalo de datas
           </Button>
           <Button
             onClick={() => setActivePage({ page: "ThirdPage" })}
@@ -46,11 +46,19 @@ const Sidebar: React.FC = () => {
               activePage.page === "ThirdPage" ? "ButtonActiveApod" : ""
             }
           >
+            Única data
+          </Button>
+          <Button
+            onClick={() => setActivePage({ page: "FourthPage" })}
+            className={
+              activePage.page === "FourthPage" ? "ButtonActiveApod" : ""
+            }
+          >
             Fotos aleatórias
           </Button>
         </ButtonsContent>
       </Container>
-    </>
+    </div>
   );
 };
 

@@ -9,6 +9,12 @@ export const Container = styled.div`
     margin: auto;
     max-width: 85%;
   }
+
+  max-height: 100vh;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const Wrapper = styled.div`
   width: 100%;
@@ -103,12 +109,13 @@ export const MyInput = styled.input`
   background-color: var(--secundary);
 `;
 export const ImageContent = styled.div`
+  background-color: rgba(18, 32, 47, 1);
+  border-radius: 8px;
+  padding: 12px;
   text-align: center;
   max-width: 1100px;
   margin: 3% 20px;
-  > div > div {
-    z-index: -10;
-  }
+ 
 `;
 export const ArrowIcon = styled(RightArrowAlt)`
   width: 40px;
@@ -145,6 +152,11 @@ export const TitleCarousel = styled.div`
   font-size: 24px;
   line-height: 36px;
   color: white;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: inherit;
+    margin-bottom: 10px;
+  }
 `;
 export const Text = styled.div`
   font-family: "Poppins";
@@ -154,4 +166,8 @@ export const Text = styled.div`
   line-height: 36px;
   color: white;
   text-align: justify;
+  @media (max-width: 768px) {
+    font-size: 13px;
+    line-height: inherit;
+  }
 `;
