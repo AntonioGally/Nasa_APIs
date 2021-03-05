@@ -35,6 +35,7 @@ export const Container = styled.div`
   flex-direction: column;
   position: fixed;
   @media (max-width: 1100px) {
+    overflow-y: auto;
     margin-left: -300px;
     transition: margin 0.5s ease;
     &.openToggle {
@@ -63,6 +64,10 @@ export const ButtonsContent = styled.div`
   margin-left: 20px;
 `;
 export const Button = styled.div`
+  :hover {
+    background-color: #aabaff;
+    transition: background 0.8s ease;
+  }
   font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 600;

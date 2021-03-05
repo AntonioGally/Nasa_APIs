@@ -68,10 +68,10 @@ O layout da aplicação está disponível no Figma:
 ### Prints
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./src/assets/readme/print1.png">
+  <img alt="Nasa_APIs" title="#Nasa_APIs" src="./src/assets/readme/print1.png">
 </p>
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./src/assets/readme/print2.png">
+  <img alt="Nasa_APIs" title="#Nasa_APIs" src="./src/assets/readme/print2.jpeg">
 </p>
 
 ---
@@ -118,6 +118,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **[Framer Motion](https://www.framer.com/motion/)**
 - **[React Form Hook](https://react-hook-form.com)**
 - **[React Scroll](https://www.npmjs.com/package/react-scroll)**
+- **[TS Particles](https://particles.js.org)**
 
 > Veja o arquivo [package.json](https://github.com/AntonioGally/Nasa_APIs/blob/main/package.json)
 
