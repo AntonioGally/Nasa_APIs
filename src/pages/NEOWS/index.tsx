@@ -1,9 +1,15 @@
-import React from 'react';
+import React from "react";
+import NeowsProvider from "../../context/NeowsContext";
+import App from "./App";
 
-// import { Container } from './styles';
+const Neows: React.FC = () => {
+  return (
+    <>
+      <NeowsProvider>
+        <App />
+      </NeowsProvider>
+    </>
+  );
+};
 
-const NEOWS: React.FC = () => {
-  return <div />;
-}
-
-export default NEOWS;
+export default Neows;
