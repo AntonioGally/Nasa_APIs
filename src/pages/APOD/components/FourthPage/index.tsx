@@ -19,9 +19,8 @@ import { useApodContex } from "../../../../context/ApodContext";
 
 import { FormateDateApi } from "../../../../services/dateFormater";
 
-import particleOptions from "../../partciles.json";
+import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
-import { ISourceOptions } from "tsparticles";
 
 type TextForm = {
   qtd_photos: string;
@@ -47,7 +46,7 @@ const ThirdPage: React.FC = () => {
   return (
     <div style={{ width: "100vw" }}>
       <Particles
-        options={particleOptions as ISourceOptions}
+        options={particleOptions as unknown}
         style={{ width: "100vw", zIndex: -1000, position: "absolute" }}
       />
       <Container>

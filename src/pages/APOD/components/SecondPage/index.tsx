@@ -1,9 +1,8 @@
 import React from "react";
 
 import { Spinner } from "react-bootstrap";
-import particleOptions from "../../partciles.json";
+import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
-import { ISourceOptions } from "tsparticles";
 import {
   FormContent,
   Title,
@@ -50,9 +49,10 @@ const SecondPage: React.FC = () => {
   return (
     <div style={{ width: "100vw" }}>
       <Particles
-        options={particleOptions as ISourceOptions}
+        options={particleOptions as unknown}
         style={{ width: "100vw", zIndex: -1000, position: "absolute" }}
       />
+
       <Container>
         <FormContent onSubmit={handleSubmit(SubmitForm)} id="FirstContent">
           <div>
