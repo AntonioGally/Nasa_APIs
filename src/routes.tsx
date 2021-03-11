@@ -5,7 +5,7 @@ import ApodProvider from "./context/ApodContext";
 
 import Home from "./pages/Home";
 import Apod from "./pages/APOD";
-import Neows from "./pages/NEOWS";
+import Neows from "./pages/Neows";
 import Donki from "./pages/DONKI";
 
 const src: React.FC = () => {

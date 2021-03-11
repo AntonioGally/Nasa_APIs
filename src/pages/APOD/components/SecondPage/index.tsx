@@ -1,5 +1,5 @@
 import React from "react";
-
+import MyKey from "../../../../MyKey";
 import { Spinner } from "react-bootstrap";
 import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
@@ -38,10 +38,11 @@ const SecondPage: React.FC = () => {
     setLoading(true);
     var start_date = FormateDateInput(data.startDate);
     var end_date = FormateDateInput(data.endDate);
+
     var dataObj = {
       start_date: start_date.toString(),
       end_date: end_date.toString(),
-      api_key: "kcacmvZhtF2lHZT0y6Ogl4CEqOz8nOnE0ECcsJS6",
+      api_key: MyKey(),
     };
     await startEndDate(dataObj);
     setLoading(false);
@@ -77,6 +78,7 @@ const SecondPage: React.FC = () => {
                 },
               })}
             />
+
             {errors.startDate &&
               (errors.startDate as any).type === "minLength" && (
                 <div className="text-danger" style={{ marginLeft: 10 }}>
@@ -122,6 +124,7 @@ const SecondPage: React.FC = () => {
                 <ArrowIcon />
               </button>
             </div>
+
             {errors.endDate && (errors.endDate as any).type === "minLength" && (
               <div className="text-danger" style={{ marginLeft: 10 }}>
                 {(errors.endDate as any).message}

@@ -97,6 +97,12 @@ $ cd Nasa_APIs
 # Instale as dependências
 $ yarn install
 
+# Crie um arquivo dentro do diretório src com o nome MyKey.ts
+$ ./src/MyKey.ts
+
+# Adicione sua chave de API quem pode ser gerada em https://api.nasa.gov
+$ export default "DEMO_KEY";
+
 # Execute a aplicação em modo de desenvolvimento
 $ yarn start
 
