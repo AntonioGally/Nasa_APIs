@@ -1,6 +1,7 @@
 import React, { memo, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { useApodContex } from "../../../../context/ApodContext";
+import MyKey from "../../../../MyKey";
 import {
   Container,
   TextContent,
@@ -15,7 +16,7 @@ const FirstPage: React.FC = () => {
   useEffect(() => {
     const request = async () => {
       var dataObj = {
-        api_key: "kcacmvZhtF2lHZT0y6Ogl4CEqOz8nOnE0ECcsJS6",
+        api_key: MyKey(),
       };
       await GetInformation(dataObj);
     };

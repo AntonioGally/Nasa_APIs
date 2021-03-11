@@ -1,4 +1,5 @@
 import React from "react";
+import MyKey from "../../../../MyKey";
 import { Spinner } from "react-bootstrap";
 import {
   Container,
@@ -38,7 +39,7 @@ const ThirdPage: React.FC = () => {
     var date = FormateDateInput(data.SpecificDate);
     var dataObj = {
       date: date.toString(),
-      api_key: "kcacmvZhtF2lHZT0y6Ogl4CEqOz8nOnE0ECcsJS6",
+      api_key: MyKey(),
     };
     await OneDate(dataObj);
     setLoading(false);
