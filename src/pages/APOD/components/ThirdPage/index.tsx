@@ -21,7 +21,6 @@ import {
   FormateDateInput,
   FormateDateApi,
 } from "../../../../services/dateFormater";
-
 import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
 
