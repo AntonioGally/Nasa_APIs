@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { RightArrowAlt } from "@styled-icons/boxicons-regular/RightArrowAlt";
+import { Shuffle } from "@styled-icons/entypo/Shuffle";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -61,6 +62,14 @@ export const ArrowIcon = styled(RightArrowAlt)`
   cursor: pointer;
   flex-shrink: 0;
 `;
+export const ShuffleIcon = styled(Shuffle)`
+  width: 30px;
+  height: 30px;
+  color: white;
+  margin-left: 30px;
+  cursor: pointer;
+  flex-shrink: 0;
+`;
 export const ContentChart = styled.div`
   max-width: 1100px;
   background-color: var(--background);
@@ -69,7 +78,23 @@ export const ContentChart = styled.div`
   @media (max-width: 1500px) {
     width: 100%;
   }
-  > div > canvas {
-    /* padding: 10px; */
+`;
+export const MyButton = styled.div`
+  :hover {
+    background-color: #aabaff;
+    transition: background 0.8s ease;
   }
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+  color: black;
+  padding: 15px 25px;
+  width: 250px;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 32px;
+  background-color: #c4c4c4;
+  cursor: pointer;
 `;

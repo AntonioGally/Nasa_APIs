@@ -1,9 +1,18 @@
 import React, { createContext, useState, useContext } from "react";
+import { apiStructure } from "../@types/neows";
 import api from "../services/api";
 export const NeowsContext = createContext({});
 
 export default function NeowsProvider({ children }: any) {
   const [activePage, setActivePage] = useState("FirstPage");
+  const [dataInformationHadardous, setDataInformationHazardous] = useState<
+    apiStructure[]
+  >();
+  const [dataInformation, setDataInformation] = useState<apiStructure[]>();
+  const [additionalInfo, setAdditionalInfo] = useState({
+    Objects: Number,
+    Date: String,
+  });
 
   const FeedInformation = (date: string, api_key: string) => {
     const info = Promise.all([
@@ -31,6 +40,12 @@ export default function NeowsProvider({ children }: any) {
           activePage,
           setActivePage,
           FeedInformation,
+          dataInformationHadardous,
+          setDataInformationHazardous,
+          dataInformation,
+          setDataInformation,
+          additionalInfo,
+          setAdditionalInfo,
         } as any
       }
     >
@@ -40,6 +55,26 @@ export default function NeowsProvider({ children }: any) {
 }
 export function useNeowsContext() {
   const context = useContext(NeowsContext);
-  const { activePage, setActivePage, FeedInformation }: any = context;
-  return { activePage, setActivePage, FeedInformation };
+  const {
+    activePage,
+    setActivePage,
+    FeedInformation,
+    dataInformationHadardous,
+    setDataInformationHazardous,
+    dataInformation,
+    setDataInformation,
+    additionalInfo,
+    setAdditionalInfo,
+  }: any = context;
+  return {
+    activePage,
+    setActivePage,
+    FeedInformation,
+    dataInformationHadardous,
+    setDataInformationHazardous,
+    dataInformation,
+    setDataInformation,
+    additionalInfo,
+    setAdditionalInfo,
+  };
 }

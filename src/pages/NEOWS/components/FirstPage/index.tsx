@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import MyKey from "../../../../MyKey";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Bubble } from "react-chartjs-2";
 import { useNeowsContext } from "../../../../context/NeowsContext";
-import { apiStructure } from "../../../../@types/neows";
 import { FormateDateInput } from "../../../../services/dateFormater";
 import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
+
+import MyChart from "./MyChart";
 
 import {
   Container,
@@ -16,6 +16,7 @@ import {
   MyInput,
   ArrowIcon,
   ContentChart,
+  ShuffleIcon,
 } from "./styles";
 
 type TextForm = {
@@ -23,23 +24,32 @@ type TextForm = {
 };
 
 const FirstPage: React.FC = () => {
-  const { FeedInformation } = useNeowsContext();
+  const {
+    FeedInformation,
+    setActivePage,
+    dataInformation,
+    dataInformationHadardous,
+    setDataInformation,
+    setDataInformationHazardous,
+    additionalInfo,
+    setAdditionalInfo,
+  } = useNeowsContext();
   const [loading, setLoading] = useState(false);
-  const [auxDate, setAuxDate] = useState("");
-  const [nasaCount, setNasaCount] = useState(0);
   const [erros, setErros] = useState("");
-  const [dataInformationHadardous, setDataInformationHazardous] = useState<
-    apiStructure[]
-  >();
-  const [dataInformation, setDataInformation] = useState<apiStructure[]>();
+
   const { register, handleSubmit, errors } = useForm<TextForm>();
+
+  const renderTooltip = (props: any) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Data aleatória
+    </Tooltip>
+  );
 
   const SubmitForm = async (data: TextForm) => {
     setLoading(true);
-    setAuxDate(data.SpecificDate);
     var finalDate = FormateDateInput(data.SpecificDate);
 
-    if (finalDate === "O ano mínimo é 1995") {
+    if (finalDate === "O ano mínimo é 1994") {
       setErros(finalDate);
     } else if (finalDate === "Insira um ano válido") {
       setErros(finalDate);
@@ -59,24 +69,51 @@ const FirstPage: React.FC = () => {
         });
         setDataInformationHazardous(auxListHazardour);
         setDataInformation(auxListNormal);
-        setNasaCount(results.element_count);
+        setAdditionalInfo({
+          Objects: results.element_count,
+          Date: data.SpecificDate,
+        });
         setLoading(false);
       }
     }
   };
-  function dataConfig() {
-    var min = Math.ceil(0);
-    var max = Math.floor(50);
-    console.log(dataInformationHadardous);
 
+  function GenerateDate() {
+    var data = new Date();
+    var minDay = Math.ceil(1);
+    var maxDay = Math.ceil(28);
+    var day = Math.floor(Math.random() * (maxDay - minDay)) + minDay;
+
+    var pad = "00";
+    var newDay = (pad + day).slice(-pad.length); // Se o dia for menor que 10 eu adiciono um zero à esquerda, essa verificação eu faço no obj
+
+    var minMonth = Math.ceil(1);
+    var maxMonth = Math.ceil(12);
+    var month = Math.floor(Math.random() * (maxMonth - minMonth)) + minMonth;
+
+    var newMonth = (pad + month).slice(-pad.length); // Se o mês for menor que 10 eu adiciono um zero à esquerda, essa verificação eu faço no obj
+
+    var minYear = Math.ceil(1994);
+    var maxYear = Math.ceil(data.getFullYear() - 1);
+    var year = Math.floor(Math.random() * (maxYear - minYear)) + minYear;
+
+    var obj = {
+      SpecificDate: `${day < 10 ? newDay : day}/${
+        month < 10 ? newMonth : month
+      }/${year}`,
+    };
+    console.log(obj.SpecificDate);
+    return SubmitForm(obj);
+  }
+
+  function dataConfig() {
     const dataChart = [
       {
-        label: "Asteróides Inofensivos",
-        data: dataInformation?.map((i) => {
-          var aleatoryNumber = Math.floor(Math.random() * (max - min)) + min; //gerando um numero inteiro aleatório entre 0 e 100
-          var x = aleatoryNumber;
+        label: "Inofensivos",
+        data: dataInformation?.map((i: any, index: number) => {
+          var x = index * 10;
           var y = Number(
-            i.close_approach_data.map((x) => {
+            i.close_approach_data.map((x: any) => {
               return Number(x.miss_distance.lunar);
             })
           );
@@ -112,12 +149,11 @@ const FirstPage: React.FC = () => {
       },
 
       {
-        label: "Asteróides Perigosos",
-        data: dataInformationHadardous?.map((i) => {
-          var aleatoryNumber = Math.floor(Math.random() * (max - min)) + min; //gerando um numero inteiro aleatório entre 0 e 100
-          var x = aleatoryNumber;
+        label: "Perigosos",
+        data: dataInformationHadardous?.map((i: any, index: number) => {
+          var x = (index + 1) * 10;
           var y = Number(
-            i.close_approach_data.map((x) => {
+            i.close_approach_data.map((x: any) => {
               return Number(x.miss_distance.lunar);
             })
           );
@@ -190,6 +226,13 @@ const FirstPage: React.FC = () => {
               <button type="submit">
                 <ArrowIcon />
               </button>
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip}
+              >
+                <ShuffleIcon onClick={() => GenerateDate()} />
+              </OverlayTrigger>
             </div>
             <div className="text-danger" style={{ marginLeft: 10 }}>
               {erros}
@@ -235,23 +278,35 @@ const FirstPage: React.FC = () => {
         ) : dataInformation ? (
           <>
             <ContentChart>
-              <Bubble
-                data={{
-                  datasets: dataConfig(),
-                }}
-                options={{
+              <MyChart
+                //tava dando problema de renderização nesse componente (antes eu tava chamando o Bublle diretamente por aqui)
+                //quando eu digitava algo no input aparentemente mudava o state la do context e fazia esse componente renderizar denovo
+                //Então eu fiz um componente a parte passando as props necessárias, depois utilizei o memo e ficou show (menos 1 problema de renderização)
+                dataProps={{ datasets: dataConfig() }}
+                optionsProps={{
                   onClick: function (e: any) {
                     var element = this.getElementAtEvent(e);
 
                     // If you click on at least 1 element ...
                     if (element.length > 0) {
                       // Logs it
-                      console.log(element[0]);
+                      if (element[0]._datasetIndex === 0) {
+                        // Se for o dataset de asteroid inofensivo eu pego as informações do index do dataset
+                        setActivePage("SecondPage");
+                        console.log(dataInformation[element[0]._index]);
+                      } else if (element[0]._datasetIndex === 1) {
+                        // Mesma coisa aqui
+                        console.log(
+                          dataInformationHadardous?.[element[0]._index]
+                        );
+                      }
 
                       // Here we get the data linked to the clicked bubble ...
                       // var datasetLabel = this.config.data.datasets[
                       //   element[0]._datasetIndex
-                      // ].label;
+                      // ];
+
+                      // console.log(datasetLabel);
                       // data gives you `x`, `y` and `r` values
                       // var data = this.config.data.datasets[
                       //   element[0]._datasetIndex
@@ -285,9 +340,11 @@ const FirstPage: React.FC = () => {
                     position: "top",
                     fontSize: 20,
                     fontColor: "rgb(255, 255, 255)",
-                    text: `${nasaCount} ${
-                      nasaCount > 1 ? "objetos próximos" : "objeto próximo"
-                    } no dia ${auxDate}`,
+                    text: `${additionalInfo.Objects} ${
+                      additionalInfo.Objects > 1
+                        ? "objetos próximos"
+                        : "objeto próximo"
+                    } no dia ${additionalInfo.Date}`,
                   },
                   scales: {
                     yAxes: [
