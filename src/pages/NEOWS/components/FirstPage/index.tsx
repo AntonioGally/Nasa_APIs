@@ -41,19 +41,18 @@ const FirstPage: React.FC = () => {
       if (results) {
         setDataInformation(results.near_earth_objects[finalDate]);
         setNasaCount(results.element_count);
-        console.log(results);
         setLoading(false);
       }
     }
   };
-
+  function teste(data: any) {}
   function dataConfig() {
     var min = Math.ceil(0);
     var max = Math.floor(50);
 
     const dataChart = [
       {
-        label: "Asteroid caralho",
+        label: "Asteróides",
         data: dataInformation?.map((i) => {
           var aleatoryNumber = Math.floor(Math.random() * (max - min)) + min; //gerando um numero inteiro aleatório entre 0 e 100
           var x = aleatoryNumber;
@@ -87,8 +86,10 @@ const FirstPage: React.FC = () => {
           };
           return obj;
         }),
-        backgroundColor: "red",
-        hoverBackgroundColor: "red",
+        backgroundColor: "white",
+        hoverBackgroundColor: "white",
+        hoverBorderWidth: 3,
+        borderColor: "pink",
       },
     ];
     return dataChart;
@@ -175,7 +176,25 @@ const FirstPage: React.FC = () => {
           <>
             <h1 style={{ color: "white" }}>{nasaCount}</h1>
             <ContentChart>
-              <Bubble data={{ datasets: dataConfig() }} />
+              <Bubble
+                data={{ datasets: dataConfig() }}
+                options={{
+                  legend: {
+                    display: true,
+                    labels: {
+                      fontColor: "rgb(255, 255, 255)",
+                      fontSize: 16,
+                    },
+                  },
+                  title: {
+                    display: true,
+                    position: "top",
+                    fontSize: 20,
+                    fontColor: "rgb(255, 255, 255)",
+                    text: "Objetos próximos",
+                  },
+                }}
+              />
             </ContentChart>
           </>
         ) : (

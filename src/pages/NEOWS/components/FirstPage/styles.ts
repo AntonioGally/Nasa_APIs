@@ -8,11 +8,15 @@ export const Container = styled.div`
   @media (max-width: 1100px) {
     margin: auto;
     max-width: 85%;
+    padding-right: 0px !important;
   }
   max-height: 100vh;
   overflow-y: auto;
   ::-webkit-scrollbar {
     display: none;
+  }
+  @media (max-width: 1500px) {
+    padding-right: 20px;
   }
 `;
 export const FormContent = styled.form`
@@ -58,7 +62,14 @@ export const ArrowIcon = styled(RightArrowAlt)`
   flex-shrink: 0;
 `;
 export const ContentChart = styled.div`
-  width: 80%;
-  background-color: pink;
+  max-width: 1100px;
+  background-color: var(--background);
+  border-radius: 10px;
   margin-bottom: 5%;
+  @media (max-width: 1500px) {
+    width: 100%;
+  }
+  > div > canvas {
+    /* padding: 10px; */
+  }
 `;
