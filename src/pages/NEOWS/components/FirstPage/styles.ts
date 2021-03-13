@@ -60,4 +60,5 @@ export const ArrowIcon = styled(RightArrowAlt)`
 export const ContentChart = styled.div`
   width: 80%;
   background-color: pink;
+  margin-bottom: 5%;
 `;

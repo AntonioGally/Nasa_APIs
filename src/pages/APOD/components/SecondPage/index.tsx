@@ -30,6 +30,7 @@ type TextForm = {
 };
 
 const SecondPage: React.FC = () => {
+  const [erros, setErros] = React.useState("");
   const { register, handleSubmit, errors } = useForm<TextForm>();
   const { startEndDate, dataStartEndDate } = useApodContex();
   const [loading, setLoading] = React.useState(false);
@@ -39,13 +40,26 @@ const SecondPage: React.FC = () => {
     var start_date = FormateDateInput(data.startDate);
     var end_date = FormateDateInput(data.endDate);
 
-    var dataObj = {
-      start_date: start_date.toString(),
-      end_date: end_date.toString(),
-      api_key: MyKey(),
-    };
-    await startEndDate(dataObj);
-    setLoading(false);
+    if (
+      start_date === "O ano mínimo é 1995" ||
+      start_date === "Insira um ano válido"
+    ) {
+      setErros(start_date);
+    } else if (
+      end_date === "O ano mínimo é 1995" ||
+      end_date === "Insira um ano válido"
+    ) {
+      setErros(end_date);
+    } else {
+      var dataObj = {
+        start_date: start_date.toString(),
+        end_date: end_date.toString(),
+        api_key: MyKey(),
+      };
+
+      await startEndDate(dataObj);
+      setLoading(false);
+    }
   };
   return (
     <div style={{ width: "100vw" }}>
@@ -124,7 +138,9 @@ const SecondPage: React.FC = () => {
                 <ArrowIcon />
               </button>
             </div>
-
+            <div className="text-danger" style={{ marginLeft: 10 }}>
+              {erros}
+            </div>
             {errors.endDate && (errors.endDate as any).type === "minLength" && (
               <div className="text-danger" style={{ marginLeft: 10 }}>
                 {(errors.endDate as any).message}
