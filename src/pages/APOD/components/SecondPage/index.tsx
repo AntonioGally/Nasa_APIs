@@ -14,6 +14,8 @@ import {
   TitleCarousel,
   Text,
   Container,
+  VideoContent,
+  MyVideo,
 } from "./styles";
 import { useForm } from "react-hook-form";
 import { Carousel } from "react-bootstrap";
@@ -198,10 +200,22 @@ const SecondPage: React.FC = () => {
                           </TitleCarousel>
                           <Text>{information.explanation}</Text>
                         </TextContent>
-                        <MyImage
-                          src={information.url}
-                          alt="APOD Date interval"
-                        />
+                        {information.media_type === "video" ? (
+                          <VideoContent>
+                            <MyVideo
+                              src={information.url}
+                              scrolling="no"
+                              frameBorder="0"
+                              allowTransparency={true}
+                              allow="encrypted-media"
+                            />
+                          </VideoContent>
+                        ) : (
+                          <MyImage
+                            src={information.url}
+                            alt="APOD of the day"
+                          />
+                        )}
                       </Carousel.Item>
                     ))}
                   </Carousel>

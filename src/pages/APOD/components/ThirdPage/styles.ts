@@ -98,7 +98,6 @@ export const ImageContent = styled.div`
   text-align: center;
   max-width: 1100px;
   margin: 3% 20px;
-  z-index: -10;
 `;
 export const ArrowIcon = styled(RightArrowAlt)`
   width: 40px;
@@ -152,5 +151,31 @@ export const Text = styled.div`
   @media (max-width: 768px) {
     font-size: 13px;
     line-height: inherit;
+  }
+`;
+export const VideoContent = styled.div`
+  margin: 5% auto 2%;
+  border-radius: 5px;
+  width: 1000px;
+  @media (max-width: 1500px) {
+    margin-top: 0;
+    width: 500px;
+    margin-left: 0;
+    padding: 20px;
+    margin: auto;
+  }
+  @media (max-width: 520px) {
+    width: 300px;
+    padding: 0;
+  }
+`;
+export const MyVideo = styled.iframe`
+  width: 100%;
+  min-height: 800px;
+  @media (max-width: 1500px) {
+    min-height: 600px;
+  }
+  @media (max-width: 520px) {
+    min-height: 300px;
   }
 `;

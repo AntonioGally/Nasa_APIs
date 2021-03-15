@@ -12,6 +12,8 @@ import {
   TextContent,
   TitleCarousel,
   Text,
+  VideoContent,
+  MyVideo,
 } from "./styles";
 
 import { useForm } from "react-hook-form";
@@ -144,7 +146,19 @@ const ThirdPage: React.FC = () => {
                     </TitleCarousel>
                     <Text>{dataOneDate.explanation}</Text>
                   </TextContent>
-                  <MyImage src={dataOneDate.url} alt="APOD Date interval" />
+                  {dataOneDate?.media_type === "video" ? (
+                    <VideoContent>
+                      <MyVideo
+                        src={dataOneDate?.url}
+                        scrolling="no"
+                        frameBorder="0"
+                        allowTransparency={true}
+                        allow="encrypted-media"
+                      />
+                    </VideoContent>
+                  ) : (
+                    <MyImage src={dataOneDate?.url} alt="APOD of the day" />
+                  )}
                 </ImageContent>
               </>
             ) : (

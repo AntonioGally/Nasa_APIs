@@ -11,6 +11,8 @@ import {
   Text,
   ImageContent,
   MyImage,
+  VideoContent,
+  MyVideo,
 } from "./styles";
 import { Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -136,10 +138,22 @@ const ThirdPage: React.FC = () => {
                           </TitleCarousel>
                           <Text>{information.explanation}</Text>
                         </TextContent>
-                        <MyImage
-                          src={information.url}
-                          alt="APOD Aleatory Date"
-                        />
+                        {information.media_type === "video" ? (
+                          <VideoContent>
+                            <MyVideo
+                              src={information.url}
+                              scrolling="no"
+                              frameBorder="0"
+                              allowTransparency={true}
+                              allow="encrypted-media"
+                            />
+                          </VideoContent>
+                        ) : (
+                          <MyImage
+                            src={information.url}
+                            alt="APOD aleatory date"
+                          />
+                        )}
                       </Carousel.Item>
                     ))}
                   </Carousel>
