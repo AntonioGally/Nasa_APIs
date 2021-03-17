@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-import { apiStructure } from "../@types/neows";
+import { apiStructure, lookupStructure } from "../@types/neows";
 import api from "../services/api";
 export const NeowsContext = createContext({});
 
@@ -20,6 +20,7 @@ export default function NeowsProvider({ children }: any) {
     setAuxAsteroidInformation,
   ] = useState<apiStructure>(); // esse serve pra quando o usuário clica em algum asteróide no gráfico, ai eu coloco as informações daquele asteróide aqui nesse state
   // e ja redireciono para a página de LookUp
+  const [lookupData, setLookupData] = useState<lookupStructure>();
 
   const FeedInformation = (date: string, api_key: string) => {
     const info = Promise.all([
@@ -34,8 +35,26 @@ export default function NeowsProvider({ children }: any) {
     ]).then(async (responses) => {
       const [PushNotifications] = responses;
       const results = await PushNotifications.data;
-      if (results) {
+      return results;
+    });
+    return info;
+  };
+  const LookupInformation = (id: string, api_key: string) => {
+    const info = Promise.all([
+      api.get(
+        `https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=${api_key}`, //vai começar e terminar no mesmo dia pra n da overLoad na requisição
+        {
+          validateStatus: function (status) {
+            return status < 501; // Resolve only if the status code is less than 500
+          },
+        }
+      ),
+    ]).then(async (responses) => {
+      const [PushNotifications] = responses;
+      if (PushNotifications.status === 404) {
+        return "Id Não encontrado";
       }
+      const results = await PushNotifications.data;
       return results;
     });
     return info;
@@ -55,6 +74,9 @@ export default function NeowsProvider({ children }: any) {
           setAdditionalInfo,
           auxAsteroidInformation,
           setAuxAsteroidInformation,
+          lookupData,
+          setLookupData,
+          LookupInformation,
         } as any
       }
     >
@@ -76,6 +98,9 @@ export function useNeowsContext() {
     setAdditionalInfo,
     auxAsteroidInformation,
     setAuxAsteroidInformation,
+    lookupData,
+    setLookupData,
+    LookupInformation,
   }: any = context;
   return {
     activePage,
@@ -89,5 +114,8 @@ export function useNeowsContext() {
     setAdditionalInfo,
     auxAsteroidInformation,
     setAuxAsteroidInformation,
+    lookupData,
+    setLookupData,
+    LookupInformation,
   };
 }

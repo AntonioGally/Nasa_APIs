@@ -13,7 +13,7 @@ import { useTheme } from "@material-ui/core/styles";
 import Earth from "../../../../assets/NEOWS/Earth.png";
 import Jupiter from "../../../../assets/NEOWS/Jupiter.png";
 import Mars from "../../../../assets/NEOWS/Mars.png";
-import Mercury from "../../../../assets/NEOWS/Mercury.png";
+import Mercury from "../../../../assets/NEOWS/Merc.png";
 import Netuno from "../../../../assets/NEOWS/Netuno.png";
 import Saturn from "../../../../assets/NEOWS/Saturn.png";
 import Uranus from "../../../../assets/NEOWS/Netuno.png";
@@ -45,7 +45,11 @@ const FirstPage: React.FC<Props> = ({ open, onClose }) => {
     { LabelPt: "Urâno", label: "Uranus", image: Uranus },
     { LabelPt: "Venus", label: "Venus", image: Venus },
   ];
-  const { auxAsteroidInformation, additionalInfo } = useNeowsContext();
+  const {
+    auxAsteroidInformation,
+    additionalInfo,
+    setActivePage,
+  } = useNeowsContext();
   const theme = useTheme();
   const [auxPhoto, setAuxPhoto] = useState("");
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
@@ -53,6 +57,7 @@ const FirstPage: React.FC<Props> = ({ open, onClose }) => {
     paper: {
       background: "var(--background)",
       padding: "15px",
+      borderRadius: 8,
     },
   })(Dialog);
 
@@ -61,7 +66,7 @@ const FirstPage: React.FC<Props> = ({ open, onClose }) => {
       return i.orbiting_body;
     });
     setAuxPhoto(aux[0]);
-  }, []);
+  }, [auxAsteroidInformation.close_approach_data]);
 
   function diameter() {
     var calc =
@@ -124,7 +129,10 @@ const FirstPage: React.FC<Props> = ({ open, onClose }) => {
                   <Info>Diâmetro: {diameter()} Metros</Info>
                   <Info>Velocidade: {velocity()} Km/s</Info>
                   <Info>Distância: {distancy()} Luas</Info>
-                  <Info className="idModalInformation">
+                  <Info
+                    className="idModalInformation"
+                    onClick={() => setActivePage("SecondPage")}
+                  >
                     Identificador: {auxAsteroidInformation.id}
                   </Info>
                 </div>
@@ -137,7 +145,7 @@ const FirstPage: React.FC<Props> = ({ open, onClose }) => {
               {photos.map((i, index) => {
                 if (i.label === auxPhoto) {
                   return (
-                    <>
+                    <div key={index}>
                       <Info style={{ marginBottom: 10 }}>
                         Órbita: {i.LabelPt}
                       </Info>
@@ -148,11 +156,11 @@ const FirstPage: React.FC<Props> = ({ open, onClose }) => {
                           justifyContent: "center",
                         }}
                       >
-                        <MyImage src={i.image} key={index} />;
+                        <MyImage src={i.image} />;
                       </div>
-                    </>
+                    </div>
                   );
-                } else return;
+                } else return "";
               })}
             </Grid>
           </Grid>
