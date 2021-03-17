@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
             onClick={() => setActivePage("SecondPage")}
             className={activePage === "SecondPage" ? "ButtonActiveApod" : ""}
           >
-            Second Page
+            Neo - LookUp
           </Button>
         </ButtonsContent>
       </Container>

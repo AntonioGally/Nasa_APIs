@@ -18,6 +18,8 @@ import {
   ContentChart,
   ShuffleIcon,
 } from "./styles";
+import { generateDate } from "../../../../services/generateDate";
+import ModalInformation from "./ModalInformation";
 
 type TextForm = {
   SpecificDate: string;
@@ -26,16 +28,18 @@ type TextForm = {
 const FirstPage: React.FC = () => {
   const {
     FeedInformation,
-    setActivePage,
     dataInformation,
     dataInformationHadardous,
     setDataInformation,
     setDataInformationHazardous,
     additionalInfo,
     setAdditionalInfo,
+    setAuxAsteroidInformation,
   } = useNeowsContext();
   const [loading, setLoading] = useState(false);
   const [erros, setErros] = useState("");
+  const [auxDate, setAuxDate] = useState("");
+  const [open, setOpen] = useState(false);
 
   const { register, handleSubmit, errors } = useForm<TextForm>();
 
@@ -78,31 +82,11 @@ const FirstPage: React.FC = () => {
     }
   };
 
-  function GenerateDate() {
-    var data = new Date();
-    var minDay = Math.ceil(1);
-    var maxDay = Math.ceil(28);
-    var day = Math.floor(Math.random() * (maxDay - minDay)) + minDay;
-
-    var pad = "00";
-    var newDay = (pad + day).slice(-pad.length); // Se o dia for menor que 10 eu adiciono um zero à esquerda, essa verificação eu faço no obj
-
-    var minMonth = Math.ceil(1);
-    var maxMonth = Math.ceil(12);
-    var month = Math.floor(Math.random() * (maxMonth - minMonth)) + minMonth;
-
-    var newMonth = (pad + month).slice(-pad.length); // Se o mês for menor que 10 eu adiciono um zero à esquerda, essa verificação eu faço no obj
-
-    var minYear = Math.ceil(1994);
-    var maxYear = Math.ceil(data.getFullYear() - 1);
-    var year = Math.floor(Math.random() * (maxYear - minYear)) + minYear;
-
+  function handleAleatoryDate() {
     var obj = {
-      SpecificDate: `${day < 10 ? newDay : day}/${
-        month < 10 ? newMonth : month
-      }/${year}`,
+      SpecificDate: generateDate(),
     };
-    console.log(obj.SpecificDate);
+    setAuxDate(obj.SpecificDate);
     return SubmitForm(obj);
   }
 
@@ -207,6 +191,7 @@ const FirstPage: React.FC = () => {
                 type="text"
                 id="SpecificDate"
                 name="SpecificDate"
+                defaultValue={auxDate ? auxDate : ""}
                 placeholder="Ex: 17/11/2002"
                 ref={register({
                   minLength: {
@@ -231,7 +216,7 @@ const FirstPage: React.FC = () => {
                 delay={{ show: 250, hide: 400 }}
                 overlay={renderTooltip}
               >
-                <ShuffleIcon onClick={() => GenerateDate()} />
+                <ShuffleIcon onClick={() => handleAleatoryDate()} />
               </OverlayTrigger>
             </div>
             <div className="text-danger" style={{ marginLeft: 10 }}>
@@ -292,13 +277,17 @@ const FirstPage: React.FC = () => {
                       // Logs it
                       if (element[0]._datasetIndex === 0) {
                         // Se for o dataset de asteroid inofensivo eu pego as informações do index do dataset
-                        setActivePage("SecondPage");
-                        console.log(dataInformation[element[0]._index]);
+                        // setActivePage("SecondPage");
+                        setAuxAsteroidInformation(
+                          dataInformation[element[0]._index]
+                        );
+                        setOpen(true);
                       } else if (element[0]._datasetIndex === 1) {
-                        // Mesma coisa aqui
-                        console.log(
+                        // Mesma coisa aqui com os asteróides perigosos
+                        setAuxAsteroidInformation(
                           dataInformationHadardous?.[element[0]._index]
                         );
+                        setOpen(true);
                       }
 
                       // Here we get the data linked to the clicked bubble ...
@@ -387,6 +376,11 @@ const FirstPage: React.FC = () => {
           ""
         )}
       </Container>
+      {open ? (
+        <ModalInformation open={open} onClose={() => setOpen(false)} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

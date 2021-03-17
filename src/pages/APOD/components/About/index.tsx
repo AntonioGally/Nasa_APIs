@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
@@ -8,9 +8,6 @@ import { Table } from "react-bootstrap";
 import { Container, TextContainer, Title, Text, MyImage, Code } from "./styles";
 
 const About: React.FC = () => {
-  useEffect(() => {
-    console.log("oioi");
-  }, []);
   return (
     <div style={{ width: "100vw" }}>
       <Particles

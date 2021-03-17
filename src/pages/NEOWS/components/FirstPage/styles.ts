@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { RightArrowAlt } from "@styled-icons/boxicons-regular/RightArrowAlt";
 import { Shuffle } from "@styled-icons/entypo/Shuffle";
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;

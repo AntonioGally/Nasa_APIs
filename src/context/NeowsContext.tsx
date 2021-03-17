@@ -4,15 +4,22 @@ import api from "../services/api";
 export const NeowsContext = createContext({});
 
 export default function NeowsProvider({ children }: any) {
-  const [activePage, setActivePage] = useState("FirstPage");
+  const [activePage, setActivePage] = useState("FirstPage"); //Padrão que eu to utilizando para o funcionamento da sidebar com as mudanças de página no clique dos botões
+  //(O controle ta no app.tsx)
   const [dataInformationHadardous, setDataInformationHazardous] = useState<
     apiStructure[]
-  >();
-  const [dataInformation, setDataInformation] = useState<apiStructure[]>();
+  >(); // Aqui são armazenados os asteróides perigosos (O filtro ta no código da FirstPage da NeoWs)
+  const [dataInformation, setDataInformation] = useState<apiStructure[]>(); // Aqui são armazenados todos os asteróides inofensivos
   const [additionalInfo, setAdditionalInfo] = useState({
     Objects: Number,
     Date: String,
-  });
+  }); // Esse serve só para guardar a quantidade de asteroids e a data que o usuário digitou. Guardo-os separadamente pra não precisar fazer um .map() dentro
+  //do h1
+  const [
+    auxAsteroidInformation,
+    setAuxAsteroidInformation,
+  ] = useState<apiStructure>(); // esse serve pra quando o usuário clica em algum asteróide no gráfico, ai eu coloco as informações daquele asteróide aqui nesse state
+  // e ja redireciono para a página de LookUp
 
   const FeedInformation = (date: string, api_key: string) => {
     const info = Promise.all([
@@ -46,6 +53,8 @@ export default function NeowsProvider({ children }: any) {
           setDataInformation,
           additionalInfo,
           setAdditionalInfo,
+          auxAsteroidInformation,
+          setAuxAsteroidInformation,
         } as any
       }
     >
@@ -65,6 +74,8 @@ export function useNeowsContext() {
     setDataInformation,
     additionalInfo,
     setAdditionalInfo,
+    auxAsteroidInformation,
+    setAuxAsteroidInformation,
   }: any = context;
   return {
     activePage,
@@ -76,5 +87,7 @@ export function useNeowsContext() {
     setDataInformation,
     additionalInfo,
     setAdditionalInfo,
+    auxAsteroidInformation,
+    setAuxAsteroidInformation,
   };
 }
