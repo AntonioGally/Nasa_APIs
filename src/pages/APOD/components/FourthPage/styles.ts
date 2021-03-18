@@ -121,3 +121,29 @@ export const MyImage = styled.img`
     padding: 0;
   }
 `;
+export const VideoContent = styled.div`
+  margin: 5% auto 2%;
+  border-radius: 5px;
+  width: 1000px;
+  @media (max-width: 1500px) {
+    margin-top: 0;
+    width: 500px;
+    margin-left: 0;
+    padding: 20px;
+    margin: auto;
+  }
+  @media (max-width: 520px) {
+    width: 300px;
+    padding: 0;
+  }
+`;
+export const MyVideo = styled.iframe`
+  width: 100%;
+  min-height: 800px;
+  @media (max-width: 1500px) {
+    min-height: 600px;
+  }
+  @media (max-width: 520px) {
+    min-height: 300px;
+  }
+`;

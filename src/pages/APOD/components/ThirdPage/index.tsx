@@ -12,6 +12,8 @@ import {
   TextContent,
   TitleCarousel,
   Text,
+  VideoContent,
+  MyVideo,
 } from "./styles";
 
 import { useForm } from "react-hook-form";
@@ -21,7 +23,6 @@ import {
   FormateDateInput,
   FormateDateApi,
 } from "../../../../services/dateFormater";
-
 import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
 
@@ -31,18 +32,24 @@ type TextForm = {
 
 const ThirdPage: React.FC = () => {
   const { OneDate, dataOneDate } = useApodContex();
+  const [erros, setErros] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const { register, handleSubmit, errors } = useForm<TextForm>();
 
   const SubmitForm = async (data: TextForm) => {
     setLoading(true);
     var date = FormateDateInput(data.SpecificDate);
-    var dataObj = {
-      date: date.toString(),
-      api_key: MyKey(),
-    };
-    await OneDate(dataObj);
-    setLoading(false);
+    if (date === "O ano mínimo é 1994" || date === "Insira um ano válido") {
+      setErros(date);
+    } else {
+      setErros("");
+      var dataObj = {
+        date: date,
+        api_key: MyKey(),
+      };
+      await OneDate(dataObj);
+      setLoading(false);
+    }
   };
 
   return (
@@ -80,7 +87,9 @@ const ThirdPage: React.FC = () => {
                 <ArrowIcon />
               </button>
             </div>
-
+            <div className="text-danger" style={{ marginLeft: 10 }}>
+              {erros}
+            </div>
             {errors.SpecificDate &&
               (errors.SpecificDate as any).type === "minLength" && (
                 <div className="text-danger" style={{ marginLeft: 10 }}>
@@ -103,7 +112,7 @@ const ThirdPage: React.FC = () => {
         </FormContent>
         {!dataOneDate ? (
           <>
-            {!loading ? (
+            {!loading && erros === "" ? (
               ""
             ) : (
               <>
@@ -137,7 +146,19 @@ const ThirdPage: React.FC = () => {
                     </TitleCarousel>
                     <Text>{dataOneDate.explanation}</Text>
                   </TextContent>
-                  <MyImage src={dataOneDate.url} alt="APOD Date interval" />
+                  {dataOneDate?.media_type === "video" ? (
+                    <VideoContent>
+                      <MyVideo
+                        src={dataOneDate?.url}
+                        scrolling="no"
+                        frameBorder="0"
+                        allowTransparency={true}
+                        allow="encrypted-media"
+                      />
+                    </VideoContent>
+                  ) : (
+                    <MyImage src={dataOneDate?.url} alt="APOD of the day" />
+                  )}
                 </ImageContent>
               </>
             ) : (

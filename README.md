@@ -68,10 +68,11 @@ O layout da aplicação está disponível no Figma:
 ### Prints
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Nasa_APIs" title="#Nasa_APIs" src="./src/assets/readme/print1.png">
+  <img alt="Nasa_APIs"  width="380px" style="margin-right:20px" title="#Nasa_APIs" src="./src/assets/readme/print1.jpeg">
+  <img alt="Nasa_APIs"  width="380px"  title="#Nasa_APIs" src="./src/assets/readme/print2.jpeg">  
 </p>
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Nasa_APIs" title="#Nasa_APIs" src="./src/assets/readme/print2.jpeg">
+  <img alt="Nasa_APIs"  width="380px"  title="#Nasa_APIs" src="./src/assets/readme/print3.jpeg">
 </p>
 
 ---
@@ -101,7 +102,10 @@ $ yarn install
 $ ./src/MyKey.ts
 
 # Adicione sua chave de API quem pode ser gerada em https://api.nasa.gov
-$ export default "DEMO_KEY";
+$ export default function MyKey() {
+    return "DEMO_KEY";
+};
+
 
 # Execute a aplicação em modo de desenvolvimento
 $ yarn start

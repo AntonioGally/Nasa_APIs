@@ -56,6 +56,14 @@ const Sidebar: React.FC = () => {
           >
             Fotos aleatórias
           </Button>
+          <Button
+            onClick={() => setActivePage({ page: "AboutPage" })}
+            className={
+              activePage.page === "AboutPage" ? "ButtonActiveApod" : ""
+            }
+          >
+            Sobre
+          </Button>
         </ButtonsContent>
       </Container>
     </div>

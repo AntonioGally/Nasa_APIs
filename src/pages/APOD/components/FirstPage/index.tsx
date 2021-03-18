@@ -9,6 +9,8 @@ import {
   Text,
   ImageContent,
   MyImage,
+  MyVideo,
+  VideoContent,
 } from "./styles";
 
 const FirstPage: React.FC = () => {
@@ -48,13 +50,25 @@ const FirstPage: React.FC = () => {
         <>
           <Container>
             <TextContent>
-              <Title>
+              <Title onClick={() => console.log(dataGetInformation)}>
                 {dataGetInformation?.title} - {formattedDate}
               </Title>
               <Text>{dataGetInformation?.explanation}</Text>
             </TextContent>
             <ImageContent>
-              <MyImage src={dataGetInformation?.url} alt="APOD of the day" />
+              {dataGetInformation?.media_type === "video" ? (
+                <VideoContent>
+                  <MyVideo
+                    src={dataGetInformation?.url}
+                    scrolling="no"
+                    frameBorder="0"
+                    allowTransparency={true}
+                    allow="encrypted-media"
+                  />
+                </VideoContent>
+              ) : (
+                <MyImage src={dataGetInformation?.url} alt="APOD of the day" />
+              )}
             </ImageContent>
           </Container>
         </>

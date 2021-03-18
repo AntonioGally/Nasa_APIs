@@ -28,13 +28,13 @@ const Sidebar: React.FC = () => {
             onClick={() => setActivePage("FirstPage")}
             className={activePage === "FirstPage" ? "ButtonActiveApod" : ""}
           >
-            First Page
+            Neo - Feed
           </Button>
           <Button
             onClick={() => setActivePage("SecondPage")}
             className={activePage === "SecondPage" ? "ButtonActiveApod" : ""}
           >
-            Second Page
+            Neo - LookUp
           </Button>
         </ButtonsContent>
       </Container>
