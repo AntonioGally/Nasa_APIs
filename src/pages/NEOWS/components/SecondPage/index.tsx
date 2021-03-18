@@ -54,7 +54,7 @@ const SecondPage: React.FC = () => {
   // Valor do slider
   const [auxDate, setAuxDate] = useState({ min: 0, max: 0 }); //Auxiliar de minimo e maximo da lista de anos que a api devolve
   const [loading, setLoading] = useState(false); //Controle da exibição do spinner
-
+  const [value, setValue] = useState(0);
   const [erros, setErros] = useState(""); //Erros da api
   const { register, handleSubmit, errors } = useForm<TextForm>(); //Formulário
 
@@ -66,8 +66,8 @@ const SecondPage: React.FC = () => {
     LookupInformation,
     auxListYear, //Todos os anos que a api devolve
     setAuxListYear,
-    value,
-    setValue,
+    // value,
+    // setValue,
   } = useNeowsContext();
 
   useEffect(() => {
@@ -170,13 +170,7 @@ const SecondPage: React.FC = () => {
       <Container>
         <FormContent onSubmit={handleSubmit(SubmitForm)} id="SecondContent">
           <div>
-            <Title
-              onClick={() => {
-                console.log(auxListYear);
-              }}
-            >
-              Asteroid SPK-ID:
-            </Title>
+            <Title>Asteroid SPK-ID:</Title>
             <div>
               <MyInput
                 type="text"
@@ -233,7 +227,14 @@ const SecondPage: React.FC = () => {
             <TextContainer>
               <div>
                 <Title>
-                  {lookupData.name} - {lookupData.id}
+                  <a
+                    href={`${lookupData.nasa_jpl_url};orb=1;cov=0;log=0;cad=0#orb`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {lookupData.name}
+                  </a>{" "}
+                  - {lookupData.id}
                 </Title>
               </div>
               <Title style={{ marginTop: "2%" }}>
