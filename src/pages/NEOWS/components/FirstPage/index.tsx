@@ -48,7 +48,14 @@ const FirstPage: React.FC = () => {
       Data aleatória
     </Tooltip>
   );
+  //Verificar se o obj ta vazio
+  function isEmpty(obj: any) {
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) return false;
+    }
 
+    return true;
+  }
   const SubmitForm = async (data: TextForm) => {
     setLoading(true);
     var finalDate = FormateDateInput(data.SpecificDate);
@@ -63,20 +70,30 @@ const FirstPage: React.FC = () => {
       if (results) {
         var auxListHazardour: any = [];
         var auxListNormal: any = [];
-        results.near_earth_objects[finalDate].map((i: any) => {
-          if (i.is_potentially_hazardous_asteroid) {
-            auxListHazardour.push(i);
-          } else {
-            auxListNormal.push(i);
-          }
-          return "";
-        });
-        setDataInformationHazardous(auxListHazardour);
-        setDataInformation(auxListNormal);
-        setAdditionalInfo({
-          Objects: results.element_count,
-          Date: data.SpecificDate,
-        });
+        if (isEmpty(results.near_earth_objects)) {
+          setErros("Não existem asteroids nesse dia");
+          setDataInformationHazardous("");
+          setDataInformation("");
+          setAdditionalInfo({
+            Objects: 0,
+            Date: "",
+          });
+        } else {
+          results.near_earth_objects[finalDate].map((i: any) => {
+            if (i.is_potentially_hazardous_asteroid) {
+              auxListHazardour.push(i);
+            } else {
+              auxListNormal.push(i);
+            }
+            return "";
+          });
+          setDataInformationHazardous(auxListHazardour);
+          setDataInformation(auxListNormal);
+          setAdditionalInfo({
+            Objects: results.element_count,
+            Date: data.SpecificDate,
+          });
+        }
         setLoading(false);
       }
     }

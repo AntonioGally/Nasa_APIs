@@ -51,10 +51,10 @@ type TextForm = {
 };
 //! A estrutura da API está no @Types
 const SecondPage: React.FC = () => {
-  const [value, setValue] = useState(0); // Valor do slider
+  // Valor do slider
   const [auxDate, setAuxDate] = useState({ min: 0, max: 0 }); //Auxiliar de minimo e maximo da lista de anos que a api devolve
   const [loading, setLoading] = useState(false); //Controle da exibição do spinner
-  const [auxListYear, setAuxListYear] = useState([{ value: 0, label: "" }]); //Todos os anos que a api devolve
+
   const [erros, setErros] = useState(""); //Erros da api
   const { register, handleSubmit, errors } = useForm<TextForm>(); //Formulário
 
@@ -64,17 +64,29 @@ const SecondPage: React.FC = () => {
     lookupData,
     setLookupData,
     LookupInformation,
+    auxListYear, //Todos os anos que a api devolve
+    setAuxListYear,
+    value,
+    setValue,
   } = useNeowsContext();
 
   useEffect(() => {
     //Aqui é uma maneira de ver se ele ja possui o id do asteroid (ele consegue fazer isso clicando no link "identificador" no modal da primeira pag)
     if (auxAsteroidInformation) {
+      var year = auxAsteroidInformation.close_approach_data.map((i: any) => {
+        return (
+          i.close_approach_date[0] +
+          i.close_approach_date[1] +
+          i.close_approach_date[2] +
+          i.close_approach_date[3]
+        );
+      }); //Se ele vier do modal, eu coloco o ano que ele achou o asteroid, assim o slider nao começa do zero
+      setValue(Number(year));
       var obj = {
         SPK_ID: auxAsteroidInformation.id,
       };
       SubmitForm(obj);
     }
-    // eslint-disable-next-line
   }, [auxAsteroidInformation]);
   //Func do material
   const handleSliderChange = (event: any, newValue: any) => {
@@ -158,7 +170,13 @@ const SecondPage: React.FC = () => {
       <Container>
         <FormContent onSubmit={handleSubmit(SubmitForm)} id="SecondContent">
           <div>
-            <Title>Asteroid SPK-ID:</Title>
+            <Title
+              onClick={() => {
+                console.log(auxListYear);
+              }}
+            >
+              Asteroid SPK-ID:
+            </Title>
             <div>
               <MyInput
                 type="text"
@@ -223,7 +241,7 @@ const SecondPage: React.FC = () => {
               </Title>
               <SliderContent>
                 <Slider
-                  value={typeof value === "number" ? value : 0}
+                  value={value}
                   onChange={handleSliderChange}
                   aria-labelledby="input-slider"
                   style={{ marginRight: "20px", color: "var(--secundary)" }}
@@ -239,7 +257,7 @@ const SecondPage: React.FC = () => {
                   onChange={handleInputChange}
                   onBlur={handleBlur}
                   inputProps={{
-                    step: 20,
+                    step: 1,
                     min: auxDate.min,
                     max: auxDate.max,
                     type: "number",

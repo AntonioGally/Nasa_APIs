@@ -21,6 +21,8 @@ export default function NeowsProvider({ children }: any) {
   ] = useState<apiStructure>(); // esse serve pra quando o usuário clica em algum asteróide no gráfico, ai eu coloco as informações daquele asteróide aqui nesse state
   // e ja redireciono para a página de LookUp
   const [lookupData, setLookupData] = useState<lookupStructure>();
+  const [auxListYear, setAuxListYear] = useState([{ value: 0, label: "" }]); //Lista dos anos que a api devolve
+  const [value, setValue] = useState(0); //Valor do slider que eu to colocando aqui pra o usuário poder voltar pro gráfico sem perder a posição que tava no slider
 
   const FeedInformation = (date: string, api_key: string) => {
     const info = Promise.all([
@@ -77,6 +79,10 @@ export default function NeowsProvider({ children }: any) {
           lookupData,
           setLookupData,
           LookupInformation,
+          auxListYear,
+          setAuxListYear,
+          value,
+          setValue,
         } as any
       }
     >
@@ -101,6 +107,10 @@ export function useNeowsContext() {
     lookupData,
     setLookupData,
     LookupInformation,
+    auxListYear,
+    setAuxListYear,
+    value,
+    setValue,
   }: any = context;
   return {
     activePage,
@@ -117,5 +127,9 @@ export function useNeowsContext() {
     lookupData,
     setLookupData,
     LookupInformation,
+    auxListYear,
+    setAuxListYear,
+    value,
+    setValue,
   };
 }
