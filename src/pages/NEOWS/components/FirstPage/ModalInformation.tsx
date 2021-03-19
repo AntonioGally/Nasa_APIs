@@ -55,7 +55,7 @@ const FirstPage: React.FC<Props> = ({ open, onClose }) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
   const StyledModal = withStyles({
     paper: {
-      background: "var(--background)",
+      background: "var(--background2)",
       padding: "15px",
       borderRadius: 8,
     },

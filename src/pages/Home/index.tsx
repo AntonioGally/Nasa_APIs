@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import Content from "./Content";
 import NavBar from "../../GlobalComponents/NavBar";
 
@@ -11,4 +11,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default memo(Home);
+export default Home;
