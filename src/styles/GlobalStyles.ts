@@ -242,7 +242,8 @@ template {
   display: none;
 }
 :root{
-  --background: #12202f;
+  --background: rgba(0,0,0,0.9);
+  --background2: #12202f;
   --secundary: #FFE0E0;
 }
 `;

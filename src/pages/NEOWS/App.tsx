@@ -4,6 +4,7 @@ import { Container } from "./styles";
 import SideBar from "./components/Sidebar";
 import FirstPage from "./components/FirstPage";
 import SecondPage from "./components/SecondPage";
+import AboutPage from "./components/AboutPage";
 
 const Neows: React.FC = () => {
   const { activePage } = useNeowsContext();
@@ -13,6 +14,7 @@ const Neows: React.FC = () => {
         <SideBar />
         {activePage === "FirstPage" ? <FirstPage /> : ""}
         {activePage === "SecondPage" ? <SecondPage /> : ""}
+        {activePage === "AboutPage" ? <AboutPage /> : ""}
       </Container>
     </>
   );

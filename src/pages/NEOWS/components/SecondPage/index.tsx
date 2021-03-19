@@ -27,7 +27,7 @@ import Slider from "@material-ui/core/Slider";
 import Input from "@material-ui/core/Input";
 
 import Earth from "../../../../assets/NEOWS/Earth.png";
-import Jupiter from "../../../../assets/NEOWS/Jupiter.png";
+import Juptr from "../../../../assets/NEOWS/Jupiter.png";
 import Mars from "../../../../assets/NEOWS/Mars.png";
 import Mercury from "../../../../assets/NEOWS/Merc.png";
 import Netuno from "../../../../assets/NEOWS/Netuno.png";
@@ -37,7 +37,7 @@ import Venus from "../../../../assets/NEOWS/Venus.png";
 
 const photos = [
   { LabelPt: "Terra", label: "Earth", image: Earth },
-  { LabelPt: "Jupiter", label: "Jupiter", image: Jupiter },
+  { LabelPt: "Jupter", label: "Juptr", image: Juptr },
   { LabelPt: "Marte", label: "Mars", image: Mars },
   { LabelPt: "Mercúrio", label: "Merc", image: Mercury },
   { LabelPt: "Netuno", label: "Netuno", image: Netuno },
@@ -52,9 +52,9 @@ type TextForm = {
 //! A estrutura da API está no @Types
 const SecondPage: React.FC = () => {
   // Valor do slider
-  const [auxDate, setAuxDate] = useState({ min: 0, max: 0 }); //Auxiliar de minimo e maximo da lista de anos que a api devolve
+  // const [auxDate, setAuxDate] = useState({ min: 0, max: 0 }); //Auxiliar de minimo e maximo da lista de anos que a api devolve
   const [loading, setLoading] = useState(false); //Controle da exibição do spinner
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
   const [erros, setErros] = useState(""); //Erros da api
   const { register, handleSubmit, errors } = useForm<TextForm>(); //Formulário
 
@@ -66,8 +66,10 @@ const SecondPage: React.FC = () => {
     LookupInformation,
     auxListYear, //Todos os anos que a api devolve
     setAuxListYear,
-    // value,
-    // setValue,
+    auxDate,
+    setAuxDate,
+    value,
+    setValue,
   } = useNeowsContext();
 
   useEffect(() => {
@@ -87,6 +89,10 @@ const SecondPage: React.FC = () => {
       };
       SubmitForm(obj);
     }
+    // if (auxListYear.length > 1) {
+    //   setValue(auxDate.min);
+    // }
+    // eslint-disable-next-line
   }, [auxAsteroidInformation]);
   //Func do material
   const handleSliderChange = (event: any, newValue: any) => {
@@ -149,7 +155,6 @@ const SecondPage: React.FC = () => {
         count++;
       } // Aqui eu pego todos os anos do request
       setAuxListYear(yearList);
-      console.log(auxListYear);
       //O material ui não conseguiu renderizar todas as marcações
       var obj = {
         min: Number(auxMin),

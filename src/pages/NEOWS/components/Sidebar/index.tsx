@@ -36,6 +36,12 @@ const Sidebar: React.FC = () => {
           >
             Neo - LookUp
           </Button>
+          <Button
+            onClick={() => setActivePage("AboutPage")}
+            className={activePage === "AboutPage" ? "ButtonActiveApod" : ""}
+          >
+            Sobre
+          </Button>
         </ButtonsContent>
       </Container>
     </div>

@@ -23,6 +23,7 @@ export default function NeowsProvider({ children }: any) {
   const [lookupData, setLookupData] = useState<lookupStructure>();
   const [auxListYear, setAuxListYear] = useState([{ value: 0, label: "" }]); //Lista dos anos que a api devolve
   const [value, setValue] = useState(0); //Valor do slider que eu to colocando aqui pra o usuário poder voltar pro gráfico sem perder a posição que tava no slider
+  const [auxDate, setAuxDate] = useState({ min: 0, max: 0 }); // Mesma coisa ai de cima, pega a data maxima e minima
 
   const FeedInformation = (date: string, api_key: string) => {
     const info = Promise.all([
@@ -83,6 +84,8 @@ export default function NeowsProvider({ children }: any) {
           setAuxListYear,
           value,
           setValue,
+          auxDate,
+          setAuxDate,
         } as any
       }
     >
@@ -111,6 +114,8 @@ export function useNeowsContext() {
     setAuxListYear,
     value,
     setValue,
+    auxDate,
+    setAuxDate,
   }: any = context;
   return {
     activePage,
@@ -131,5 +136,7 @@ export function useNeowsContext() {
     setAuxListYear,
     value,
     setValue,
+    auxDate,
+    setAuxDate,
   };
 }

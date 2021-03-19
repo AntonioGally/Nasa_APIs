@@ -74,7 +74,7 @@ export const ShuffleIcon = styled(Shuffle)`
 `;
 export const ContentChart = styled.div`
   max-width: 1100px;
-  background-color: var(--background);
+  background-color: var(--background2);
   border-radius: 10px;
   margin-bottom: 5%;
   @media (max-width: 1500px) {
