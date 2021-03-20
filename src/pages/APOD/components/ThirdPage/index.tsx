@@ -39,7 +39,7 @@ const ThirdPage: React.FC = () => {
   const SubmitForm = async (data: TextForm) => {
     setLoading(true);
     var date = FormateDateInput(data.SpecificDate);
-    if (date === "O ano mínimo é 1994" || date === "Insira um ano válido") {
+    if (date === "O ano mínimo é 1996" || date === "Insira um ano válido") {
       setErros(date);
     } else {
       setErros("");
@@ -48,8 +48,8 @@ const ThirdPage: React.FC = () => {
         api_key: MyKey(),
       };
       await OneDate(dataObj);
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (

@@ -4,8 +4,8 @@ export function FormateDateInput(date: any) {
   var year = arr[6] + arr[7] + arr[8] + arr[9];
   var month = arr[3] + arr[4];
   var day = arr[0] + arr[1];
-  if (Number(year) <= 1993) {
-    return "O ano mínimo é 1994";
+  if (Number(year) <= 1996) {
+    return "O ano mínimo é 1996";
   } else if (Number(year) > data.getFullYear()) {
     return "Insira um ano válido";
   } else if (

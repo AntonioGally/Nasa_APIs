@@ -60,7 +60,7 @@ const FirstPage: React.FC = () => {
     setLoading(true);
     var finalDate = FormateDateInput(data.SpecificDate);
 
-    if (finalDate === "O ano mínimo é 1994") {
+    if (finalDate === "O ano mínimo é 1996") {
       setErros(finalDate);
     } else if (finalDate === "Insira um ano válido") {
       setErros(finalDate);
