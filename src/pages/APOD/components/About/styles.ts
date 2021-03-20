@@ -58,11 +58,13 @@ export const Text = styled.div`
   }
 `;
 export const MyImage = styled.img`
-  max-width: 1000px;
+  width: 48%;
   border-radius: 5px;
+  border: 1px solid #707070;
+
   @media (max-width: 1500px) {
     margin-top: 0;
-    width: 70%;
+    width: 50%;
     margin-left: 0;
     padding: 20px;
     margin: auto;
@@ -86,4 +88,11 @@ export const Code = styled.div`
   padding: 5px;
   width: max-content;
   background-color: rgba(255, 255, 255, 0.8);
+`;
+export const ImageContent = styled.div`
+  display: flex;
+  @media (max-width: 1100px) {
+    flex-direction: column;
+  }
+  justify-content: center;
 `;

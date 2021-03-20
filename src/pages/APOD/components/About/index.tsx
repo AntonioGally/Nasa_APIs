@@ -3,9 +3,20 @@ import React from "react";
 import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
 
+import print1 from "../../../../assets/APOD/print1.jpeg";
+import print2 from "../../../../assets/APOD/print2.jpeg";
+
 import { Table } from "react-bootstrap";
 
-import { Container, TextContainer, Title, Text, MyImage, Code } from "./styles";
+import {
+  Container,
+  TextContainer,
+  Title,
+  Text,
+  MyImage,
+  Code,
+  ImageContent,
+} from "./styles";
 
 const About: React.FC = () => {
   return (
@@ -35,9 +46,10 @@ const About: React.FC = () => {
               outros aplicativos.
             </Text>
             <Title className="AboutExempleText">Exemplo:</Title>
-            <div style={{ textAlign: "center" }}>
-              <MyImage src="https://api.nasa.gov/assets/img/general/apod.jpg" />
-            </div>
+            <ImageContent>
+              <MyImage src={print1} style={{ marginRight: "2%" }} />
+              <MyImage src={print2} />
+            </ImageContent>
           </div>
           <div style={{ marginTop: "10%" }}>
             <Title>#ForDevs</Title>

@@ -242,7 +242,7 @@ template {
   display: none;
 }
 :root{
-  --background: rgba(0,0,0,0.9);
+  --background: rgba(0,0,0,0.97);
   --background2: #12202f;
   --secundary: #FFE0E0;
 }

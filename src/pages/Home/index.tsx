@@ -1,12 +1,19 @@
 import React from "react";
-import Content from "./Content";
-import NavBar from "../../GlobalComponents/NavBar";
+import Header from "./Header";
+import FirstArticle from "./FirstArticle";
+import Cards from "./Cards";
+// import Content from "./Content";
+// import NavBar from "../../GlobalComponents/NavBar";
+import { Container } from "./styles";
 
 const Home: React.FC = () => {
   return (
     <>
-      <NavBar />
-      <Content />
+      <Container>
+        <Header />
+        <FirstArticle />
+        <Cards />
+      </Container>
     </>
   );
 };

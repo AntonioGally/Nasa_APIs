@@ -43,12 +43,12 @@ const SecondPage: React.FC = () => {
     var end_date = FormateDateInput(data.endDate);
 
     if (
-      start_date === "O ano mínimo é 1994" ||
+      start_date === "O ano mínimo é 1996" ||
       start_date === "Insira um ano válido"
     ) {
       setErros(start_date);
     } else if (
-      end_date === "O ano mínimo é 1994" ||
+      end_date === "O ano mínimo é 1996" ||
       end_date === "Insira um ano válido"
     ) {
       setErros(end_date);
