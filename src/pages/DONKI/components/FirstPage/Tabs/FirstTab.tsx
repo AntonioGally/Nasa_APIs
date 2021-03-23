@@ -83,7 +83,7 @@ const FirstPage: React.FC = () => {
       <ExplainText>
         <ul>
           <li>
-            <span>FLR: </span>Explosão solar (Solar Flare)
+            <span onClick={() => console.log(allRelatory)}>FLR: </span>Explosão solar (Solar Flare)
           </li>
           <li>
             <span>SEP: </span> Partícula Energética Solar (Solar Energetic
