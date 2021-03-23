@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 import { Spinner } from "react-bootstrap";
 import MyKey from "../../../../../MyKey";
 import { notificationStructure } from "../../../../../@types/donki";
-import { Container, Title, ChartContent } from "./FirstTabStyle";
+import { Container, ExplainText, ChartContent } from "./FirstTabStyle";
 import { useDonkiContext } from "../../../../../context/DonkiContext";
 
 const FirstPage: React.FC = () => {
@@ -80,7 +80,33 @@ const FirstPage: React.FC = () => {
   }, [allRelatory]);
   return (
     <Container>
-      <Title>Todos os relatórios</Title>
+      <ExplainText>
+        <ul>
+          <li>
+            <span>FLR: </span>Explosão solar (Solar Flare)
+          </li>
+          <li>
+            <span>SEP: </span> Partícula Energética Solar (Solar Energetic
+            Particle)
+          </li>
+          <li>
+            <span>CME: </span> Ejeção de massa coronal (Coronal Mass Ejection)
+          </li>
+          <li>
+            <span>IPS:</span> Choque Interplanetário (Interplanetary Shock)
+          </li>
+          <li>
+            <span>MPC:</span> Cruzamento de magnetopausa (Magnetopause Crossing)
+          </li>
+          <li>
+            <span>RBE:</span> Aumento da correia de radiação (Radiation Belt
+            Enhancement)
+          </li>
+          <li>
+            <span>GST:</span> Tempestade Geomagnética (Geomagnetic Storm)
+          </li>
+        </ul>
+      </ExplainText>
       {loading ? (
         <div
           style={{
@@ -104,13 +130,13 @@ const FirstPage: React.FC = () => {
           <Bar
             data={{
               labels: [
+                "FLR",
                 "SEP",
                 "CME",
                 "IPS",
                 "MPC",
-                "RBE",
                 "GST",
-                "FLR",
+                "RBE",
                 "Report",
               ],
               datasets: [
@@ -119,26 +145,26 @@ const FirstPage: React.FC = () => {
                   label: "Relatórios",
                   // Dados a serem inseridos nas barras
                   data: [
+                    auxFilter.FLR?.length,
                     auxFilter.SEP?.length,
                     auxFilter.CME?.length,
                     auxFilter.IPS?.length,
                     auxFilter.MPC?.length,
-                    auxFilter.RBE?.length,
                     auxFilter.GST?.length,
-                    auxFilter.FLR?.length,
+                    auxFilter.RBE?.length,
                     auxFilter.Report?.length,
                   ],
                   // Define as cores de preenchimento das barras
                   // de acordo com sua posição no vetor
                   backgroundColor: [
-                    "rgba(255, 255, 255, 0.6)",
-                    "rgba(255, 255, 255, 0.6)",
-                    "rgba(255, 255, 255, 0.6)",
-                    "rgba(255, 255, 255, 0.6)",
-                    "rgba(255, 255, 255, 0.6)",
-                    "rgba(255, 255, 255, 0.6)",
-                    "rgba(255, 255, 255, 0.6)",
-                    "rgba(255, 255, 255, 0.6)",
+                    "rgba(255, 99, 132, 0.2)",
+                    "rgba(54, 162, 235, 0.2)",
+                    "rgba(255, 206, 86, 0.2)",
+                    "rgba(75, 192, 192, 0.2)",
+                    "rgba(153, 102, 255, 0.2)",
+                    "rgba(255, 159, 64, 0.2)",
+                    "rgba(255, 99, 132, 0.2)",
+                    "rgba(54, 162, 235, 0.2)",
                   ],
                   // Define as cores de preenchimento das bordas das barras
                   // de acordo com sua posição no vetor
@@ -149,11 +175,90 @@ const FirstPage: React.FC = () => {
                     "rgba(75, 192, 192, 1)",
                     "rgba(153, 102, 255, 1)",
                     "rgba(255, 159, 64, 1)",
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
                   ],
                   // Define a espessura da borda dos retângulos
-                  borderWidth: 1,
+                  borderWidth: 2,
                 },
               ],
+            }}
+            options={{
+              onClick: function (e: any) {
+                var element = this.getElementAtEvent(e);
+
+                // If you click on at least 1 element ...
+                if (element.length > 0) {
+                  // Logs it
+                  if (element[0]._datasetIndex === 0) {
+                    //Primeiro Dataset
+                    console.log(element[0]._index); //Aqui eu pego o index da barrinha seguindo a ordem das informações (0 : FLR, 1: SEP, 2: CME...)
+                  }
+                }
+              },
+              legend: {
+                display: true,
+                labels: {
+                  fontColor: "rgb(255, 255, 255)",
+                  fontSize: 16,
+                },
+              },
+              tooltips: {
+                callbacks: {
+                  label: function (tooltipItem: any) {
+                    var label = "";
+                    label += Math.round(tooltipItem.yLabel * 100) / 100;
+                    return label + " Relatórios";
+                  },
+                },
+              },
+              title: {
+                display: true,
+                position: "top",
+                fontSize: 20,
+                fontColor: "rgb(255, 255, 255)",
+                text: "Todos os Relatórios",
+              },
+              scales: {
+                yAxes: [
+                  {
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Quantidade",
+                      fontColor: "#fff",
+                      lineHeight: 2.0,
+                      fontSize: 20,
+                      fontFamily: "Poppins",
+                    },
+                    gridLines: {
+                      color: "rgba(255,255,255,0.1)",
+                    },
+                    ticks: {
+                      fontColor: "#fff",
+                      fontFamily: "Poppins",
+                      fontSize: "16",
+                    },
+                  },
+                ],
+                xAxes: [
+                  {
+                    ticks: {
+                      display: true,
+                      fontColor: "#fff",
+                      fontFamily: "Poppins",
+                      fontSize: "16",
+                    },
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Tipos",
+                      fontColor: "#fff",
+                      lineHeight: 2.0,
+                      fontSize: 20,
+                      fontFamily: "Poppins",
+                    },
+                  },
+                ],
+              },
             }}
           />
         </ChartContent>

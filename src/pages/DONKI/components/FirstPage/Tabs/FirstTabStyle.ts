@@ -28,3 +28,18 @@ export const ChartContent = styled.div`
     width: 100%;
   }
 `;
+export const ExplainText = styled.div`
+  padding-right: 20px;
+  > ul > li {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19px;
+    line-height: 40px;
+    color: white;
+    > span {
+      color: pink;
+      font-weight: 600;
+    }
+  }
+`;
