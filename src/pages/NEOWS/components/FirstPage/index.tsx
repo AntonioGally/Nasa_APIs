@@ -284,6 +284,7 @@ const FirstPage: React.FC = () => {
                 //tava dando problema de renderização nesse componente (antes eu tava chamando o Bublle diretamente por aqui)
                 //quando eu digitava algo no input aparentemente mudava o state la do context e fazia esse componente renderizar denovo
                 //Então eu fiz um componente a parte passando as props necessárias, depois utilizei o memo e ficou show (menos 1 problema de renderização)
+                //! data={ {datasets: []} }
                 dataProps={{ datasets: dataConfig() }}
                 optionsProps={{
                   onClick: function (e: any) {

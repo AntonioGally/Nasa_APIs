@@ -13,7 +13,7 @@ export function generateDate() {
 
   var newMonth = (pad + month).slice(-pad.length); // Se o mês for menor que 10 eu adiciono um zero à esquerda, essa verificação eu faço no obj
 
-  var minYear = Math.ceil(1994);
+  var minYear = Math.ceil(1997);
   var maxYear = Math.ceil(data.getFullYear() - 1);
   var year = Math.floor(Math.random() * (maxYear - minYear)) + minYear;
   return `${day < 10 ? newDay : day}/${month < 10 ? newMonth : month}/${year}`;

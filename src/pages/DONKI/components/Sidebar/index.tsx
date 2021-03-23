@@ -28,13 +28,25 @@ const Sidebar: React.FC = () => {
             onClick={() => setActivePage("FirstPage")}
             className={activePage === "FirstPage" ? "ButtonActiveApod" : ""}
           >
-            FirstPage
+            Análise Geral
           </Button>
           <Button
             onClick={() => setActivePage("SecondPage")}
             className={activePage === "SecondPage" ? "ButtonActiveApod" : ""}
           >
-            Second Page
+            Análise por tipo
+          </Button>
+          <Button
+            onClick={() => setActivePage("ThirdPage")}
+            className={activePage === "ThirdPage" ? "ButtonActiveApod" : ""}
+          >
+            Relatórios
+          </Button>
+          <Button
+            onClick={() => setActivePage("AboutPage")}
+            className={activePage === "AboutPage" ? "ButtonActiveApod" : ""}
+          >
+            Sobre
           </Button>
         </ButtonsContent>
       </Container>

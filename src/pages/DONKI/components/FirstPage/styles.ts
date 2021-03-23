@@ -19,3 +19,11 @@ export const Container = styled.div`
     padding-right: 20px;
   }
 `;
+
+export const TextContainer = styled.div`
+  background-color: rgba(18, 32, 47, 1);
+  border-radius: 8px;
+  padding: 20px 12px;
+  max-width: 1100px;
+  margin: 10% 20px;
+`;
