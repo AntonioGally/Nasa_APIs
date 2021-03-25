@@ -31,3 +31,10 @@ export function FormateDateApi(date: any) {
   var day = arr[8] + arr[9];
   return `${day}/${month}/${year}`;
 }
+export function FormateDateDonki(date: any) {
+  var year = date[0] + date[1] + date[2] + date[3];
+  var month = date[5] + date[6];
+  var day = date[8] + date[9];
+
+  return `${day}/${month}/${year}`;
+}

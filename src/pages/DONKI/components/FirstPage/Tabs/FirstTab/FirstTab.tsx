@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Spinner } from "react-bootstrap";
-import MyKey from "../../../../../MyKey";
-import { notificationStructure } from "../../../../../@types/donki";
+import MyKey from "../../../../../../MyKey";
+import { notificationStructure } from "../../../../../../@types/donki";
 import { Container, ExplainText, ChartContent } from "./FirstTabStyle";
-import { useDonkiContext } from "../../../../../context/DonkiContext";
+import { useDonkiContext } from "../../../../../../context/DonkiContext";
+
+import Modal from "./Modal";
 
 const FirstPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const [auxIndexSelected, setAuxIndexSelected] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   const [FLR, setFLR] = useState<notificationStructure[]>([]);
   const [SEP, setSEP] = useState<notificationStructure[]>([]);
   const [CME, setCME] = useState<notificationStructure[]>([]);
@@ -83,7 +87,7 @@ const FirstPage: React.FC = () => {
       <ExplainText>
         <ul>
           <li>
-            <span onClick={() => console.log(allRelatory)}>FLR: </span>Explosão solar (Solar Flare)
+            <span>FLR: </span>Explosão solar (Solar Flare)
           </li>
           <li>
             <span>SEP: </span> Partícula Energética Solar (Solar Energetic
@@ -111,8 +115,7 @@ const FirstPage: React.FC = () => {
         <div
           style={{
             width: "calc(100% - 300px)",
-            marginLeft: "auto",
-            marginTop: "10%",
+            margin: "10% auto 0",
             textAlign: "center",
           }}
         >
@@ -192,7 +195,21 @@ const FirstPage: React.FC = () => {
                   // Logs it
                   if (element[0]._datasetIndex === 0) {
                     //Primeiro Dataset
-                    console.log(element[0]._index); //Aqui eu pego o index da barrinha seguindo a ordem das informações (0 : FLR, 1: SEP, 2: CME...)
+                    let auxList = [
+                      "FLR",
+                      "SEP",
+                      "CME",
+                      "IPS",
+                      "MPC",
+                      "GST",
+                      "RBE",
+                      "Report",
+                    ];
+                    // console.log(auxList[element[0]._index]);
+                    setAuxIndexSelected(auxList[element[0]._index]);
+                    setOpenModal(true);
+                    //Aqui eu pego o index da barrinha seguindo a ordem das informações (0 : FLR, 1: SEP, 2: CME...)
+                    // console.log(auxFilter);
                   }
                 }
               },
@@ -262,6 +279,13 @@ const FirstPage: React.FC = () => {
             }}
           />
         </ChartContent>
+      )}
+      {openModal && (
+        <Modal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          index={auxIndexSelected}
+        />
       )}
     </Container>
   );

@@ -1,4 +1,14 @@
 import styled from "styled-components";
+import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
+
+export const CloseIcon = styled(CloseOutline)`
+  width: 30px;
+  height: 30px;
+  color: white;
+  fill: white;
+  cursor: pointer;
+  flex-shrink: 0;
+`;
 
 export const Container = styled.div`
   margin-top: 5%;

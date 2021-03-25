@@ -4,8 +4,8 @@ import Particles from "react-tsparticles";
 import { Container, TextContainer } from "./styles";
 import { Tabs, Tab } from "react-bootstrap";
 import "./Tabs/styles.css";
-import FirstTab from "./Tabs/FirstTab";
-import SecondTab from "./Tabs/SecondTab";
+import FirstTab from "./Tabs/FirstTab/FirstTab";
+import SecondTab from "./Tabs/SecondTab/SecondTab";
 
 const FirstPage: React.FC = () => {
   return (
