@@ -38,3 +38,30 @@ export function FormateDateDonki(date: any) {
 
   return `${day}/${month}/${year}`;
 }
+export function MonthVerification(date: any) {
+  //date = {start_date: "20/11/2020", end_date: "20/12/2021"}
+
+  var arrStartDate = [...date.start_date];
+  var arrEndDate = [...date.end_date];
+
+  var auxStartDay = arrStartDate[0] + arrStartDate[1];
+  var auxStartMonth = arrStartDate[3] + arrStartDate[4];
+
+  var auxEndDay = arrEndDate[0] + arrEndDate[1];
+  var auxEndMonth = arrEndDate[3] + arrEndDate[4];
+
+  if (auxStartMonth === auxEndMonth) {
+    return true;
+  } else if (Number(auxStartDay) - Number(auxEndDay) >= 0) {
+    if (Number(auxEndMonth) - Number(auxStartMonth) === 1) {
+      return true;
+    } else if (Number(auxStartMonth) === 12 && Number(auxEndMonth) === 1) {
+      return true;
+    } else return false;
+  } else return false;
+
+  // se os meses forem iguais = válido
+  // se os meses nao forem iguais, eu preciso saber se a diferença entre os dias é maior que 0, se for, válido, se n for, significa que é mais de um mês
+  // se os dias são ok's, verifico se o intervalo dos meses é de um mês... Mas isso tem uma exceção
+  // se os meses não forem válidos, eu vejo se o usuário colocou um intervalo entre anos (mes 12 e mes 1)
+}

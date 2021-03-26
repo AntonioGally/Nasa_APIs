@@ -7,11 +7,37 @@ export default function DonkiProvider({ children }: any) {
   const [activePage, setActivePage] = useState("FirstPage"); //Me auxilia na hora de renderizar um componente por meio da SideBar (É utilizado no App.tsx)
   const [allRelatory, setAllRelatory] = useState<notificationStructure[]>(); //dados da requisição
   const [auxFilter, setAuxFilter] = useState({}); // Serve para Guardar o filtro aqui no contex
-
+  const [allRelatorySDate, setAllRelatorySDate] = useState<
+    notificationStructure[]
+  >(); // Dados da Segunda Tab da primeira página
+  const [auxFilterSDate, setAuxFilterSDate] = useState({}); //Filtro da segunda tab da primeira página
+  //Função da primeira tab da página "Análise Geral"
   const getAllRelatory = (api_key: string) => {
     const info = Promise.all([
       api.get(
         `https://api.nasa.gov/DONKI/notifications?type=all&api_key=${api_key}`,
+        {
+          validateStatus: function (status) {
+            return status < 501; // Resolve only if the status code is less than 500
+          },
+        }
+      ),
+    ]).then(async (responses) => {
+      const [PushNotifications] = responses;
+      const results = await PushNotifications.data;
+      return results;
+    });
+    return info;
+  };
+  //Função da segunda tab da página "Análise Geral"
+  const getSpecificDateRelatory = (
+    api_key: string,
+    start_date: string,
+    end_date: string
+  ) => {
+    const info = Promise.all([
+      api.get(
+        `https://api.nasa.gov/DONKI/notifications?startDate=${start_date}&endDate=${end_date}&type=all&api_key=${api_key}`,
         {
           validateStatus: function (status) {
             return status < 501; // Resolve only if the status code is less than 500
@@ -35,6 +61,11 @@ export default function DonkiProvider({ children }: any) {
         getAllRelatory,
         auxFilter,
         setAuxFilter,
+        getSpecificDateRelatory,
+        allRelatorySDate,
+        setAllRelatorySDate,
+        auxFilterSDate,
+        setAuxFilterSDate,
       }}
     >
       {children};
@@ -52,6 +83,11 @@ export function useDonkiContext() {
     getAllRelatory,
     auxFilter,
     setAuxFilter,
+    getSpecificDateRelatory,
+    allRelatorySDate,
+    setAllRelatorySDate,
+    auxFilterSDate,
+    setAuxFilterSDate,
   }: any = context;
   return {
     activePage,
@@ -61,5 +97,10 @@ export function useDonkiContext() {
     getAllRelatory,
     auxFilter,
     setAuxFilter,
+    getSpecificDateRelatory,
+    allRelatorySDate,
+    setAllRelatorySDate,
+    auxFilterSDate,
+    setAuxFilterSDate,
   };
 }
