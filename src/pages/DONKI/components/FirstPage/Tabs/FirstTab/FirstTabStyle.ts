@@ -40,7 +40,12 @@ export const ChartContent = styled.div`
 `;
 export const ExplainText = styled.div`
   padding-right: 20px;
+
   > ul > li {
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 24px;
+    }
     font-family: "Poppins";
     font-style: normal;
     font-weight: normal;

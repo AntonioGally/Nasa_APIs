@@ -36,7 +36,6 @@ const FirstPage: React.FC = () => {
   } = useDonkiContext();
   useEffect(() => {
     setAuxWindowWidth(window.innerWidth);
-    console.log(auxWindowWidth);
     setLoading(true);
     const request = async () => {
       const result = await getAllRelatory(MyKey());
@@ -290,7 +289,7 @@ const FirstPage: React.FC = () => {
         <Table striped bordered hover variant="dark" responsive="md">
           <thead>
             <tr>
-              <th onClick={() => console.log(allRelatory)}>Tipo de Mensagem</th>
+              <th>Tipo de Mensagem</th>
               <th>Data</th>
               <th>Mensagem</th>
             </tr>

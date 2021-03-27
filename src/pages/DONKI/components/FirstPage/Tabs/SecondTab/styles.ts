@@ -13,6 +13,10 @@ export const ExplainText = styled.div`
     font-style: normal;
     font-weight: normal;
     font-size: 19px;
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 24px;
+    }
     line-height: 40px;
     color: white;
     > span {
@@ -26,7 +30,7 @@ export const FormContent = styled.form`
   padding: 10px;
   margin: 0 0 3% 3%;
   @media (max-width: 600px) {
-    margin: 40% 0 5% 3%;
+    margin: 10% 0 5% 3%;
   }
   max-width: 1100px;
   > div {

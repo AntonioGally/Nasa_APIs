@@ -46,6 +46,10 @@ export const Title = styled.div`
   }
 `;
 export const TextArea = styled.textarea`
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
   margin-top: 5%;
   width: 100%;
   min-height: 500px;

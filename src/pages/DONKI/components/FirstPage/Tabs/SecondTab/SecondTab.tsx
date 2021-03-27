@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { Spinner } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Spinner, Table } from "react-bootstrap";
 import { useDonkiContext } from "../../../../../../context/DonkiContext";
-import MyKey from "../../../../../../MyKey";
 import { notificationStructure } from "../../../../../../@types/donki";
+import { FormateDateDonki } from "../../../../../../services/dateFormater";
+import MyKey from "../../../../../../MyKey";
 import { Bar } from "react-chartjs-2";
 import Modal from "../Modal";
 import {
@@ -25,6 +26,7 @@ type TextForm = {
 };
 
 const FirstPage: React.FC = () => {
+  const [auxWindowWidth, setAuxWindowWidth] = useState(0);
   const { register, handleSubmit, errors } = useForm<TextForm>();
   const [loading, setLoading] = useState(false);
   const [erros, setErros] = useState("");
@@ -39,12 +41,18 @@ const FirstPage: React.FC = () => {
   const [RBE, setRBE] = useState<notificationStructure[]>([]);
   const [Report, setReport] = useState<notificationStructure[]>([]);
 
+  useEffect(() => {
+    setAuxWindowWidth(window.innerWidth);
+  }, []);
+
   const {
     getSpecificDateRelatory,
     allRelatorySDate,
     setAllRelatorySDate,
     auxFilterSDate,
     setAuxFilterSDate,
+    setAuxRelatoryView,
+    setActivePage,
   } = useDonkiContext();
 
   const SubmitForm = (data: TextForm) => {
@@ -265,156 +273,192 @@ const FirstPage: React.FC = () => {
                 </li>
               </ul>
             </ExplainText>
-            <ChartContent>
-              <Bar
-                data={{
-                  labels: [
-                    "FLR",
-                    "SEP",
-                    "CME",
-                    "IPS",
-                    "MPC",
-                    "GST",
-                    "RBE",
-                    "Report",
-                  ],
-                  datasets: [
-                    {
-                      // Legenda geral
-                      label: "Relatórios",
-                      // Dados a serem inseridos nas barras
-                      data: [
-                        auxFilterSDate.FLR?.length,
-                        auxFilterSDate.SEP?.length,
-                        auxFilterSDate.CME?.length,
-                        auxFilterSDate.IPS?.length,
-                        auxFilterSDate.MPC?.length,
-                        auxFilterSDate.GST?.length,
-                        auxFilterSDate.RBE?.length,
-                        auxFilterSDate.Report?.length,
+            {auxWindowWidth > 768 ? (
+              <>
+                <ChartContent>
+                  <Bar
+                    data={{
+                      labels: [
+                        "FLR",
+                        "SEP",
+                        "CME",
+                        "IPS",
+                        "MPC",
+                        "GST",
+                        "RBE",
+                        "Report",
                       ],
-                      // Define as cores de preenchimento das barras
-                      // de acordo com sua posição no vetor
-                      backgroundColor: [
-                        "rgba(255, 99, 132, 0.2)",
-                        "rgba(54, 162, 235, 0.2)",
-                        "rgba(255, 206, 86, 0.2)",
-                        "rgba(75, 192, 192, 0.2)",
-                        "rgba(153, 102, 255, 0.2)",
-                        "rgba(255, 159, 64, 0.2)",
-                        "rgba(255, 99, 132, 0.2)",
-                        "rgba(54, 162, 235, 0.2)",
+                      datasets: [
+                        {
+                          // Legenda geral
+                          label: "Relatórios",
+                          // Dados a serem inseridos nas barras
+                          data: [
+                            auxFilterSDate.FLR?.length,
+                            auxFilterSDate.SEP?.length,
+                            auxFilterSDate.CME?.length,
+                            auxFilterSDate.IPS?.length,
+                            auxFilterSDate.MPC?.length,
+                            auxFilterSDate.GST?.length,
+                            auxFilterSDate.RBE?.length,
+                            auxFilterSDate.Report?.length,
+                          ],
+                          // Define as cores de preenchimento das barras
+                          // de acordo com sua posição no vetor
+                          backgroundColor: [
+                            "rgba(255, 99, 132, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                            "rgba(255, 206, 86, 0.2)",
+                            "rgba(75, 192, 192, 0.2)",
+                            "rgba(153, 102, 255, 0.2)",
+                            "rgba(255, 159, 64, 0.2)",
+                            "rgba(255, 99, 132, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                          ],
+                          // Define as cores de preenchimento das bordas das barras
+                          // de acordo com sua posição no vetor
+                          borderColor: [
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)",
+                            "rgba(75, 192, 192, 1)",
+                            "rgba(153, 102, 255, 1)",
+                            "rgba(255, 159, 64, 1)",
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                          ],
+                          // Define a espessura da borda dos retângulos
+                          borderWidth: 2,
+                        },
                       ],
-                      // Define as cores de preenchimento das bordas das barras
-                      // de acordo com sua posição no vetor
-                      borderColor: [
-                        "rgba(255, 99, 132, 1)",
-                        "rgba(54, 162, 235, 1)",
-                        "rgba(255, 206, 86, 1)",
-                        "rgba(75, 192, 192, 1)",
-                        "rgba(153, 102, 255, 1)",
-                        "rgba(255, 159, 64, 1)",
-                        "rgba(255, 99, 132, 1)",
-                        "rgba(54, 162, 235, 1)",
-                      ],
-                      // Define a espessura da borda dos retângulos
-                      borderWidth: 2,
-                    },
-                  ],
-                }}
-                options={{
-                  onClick: function (e: any) {
-                    var element = this.getElementAtEvent(e);
+                    }}
+                    options={{
+                      onClick: function (e: any) {
+                        var element = this.getElementAtEvent(e);
 
-                    // If you click on at least 1 element ...
-                    if (element.length > 0) {
-                      // Logs it
-                      if (element[0]._datasetIndex === 0) {
-                        //Primeiro Dataset
-                        let auxList = [
-                          "FLR",
-                          "SEP",
-                          "CME",
-                          "IPS",
-                          "MPC",
-                          "GST",
-                          "RBE",
-                          "Report",
-                        ];
-                        // console.log(auxList[element[0]._index]);
-                        setAuxIndexSelected(auxList[element[0]._index]);
-                        setOpenModal(true);
-                        //Aqui eu pego o index da barrinha seguindo a ordem das informações (0 : FLR, 1: SEP, 2: CME...)
-                        // console.log(auxFilter);
-                      }
-                    }
-                  },
-                  legend: {
-                    display: true,
-                    labels: {
-                      fontColor: "rgb(255, 255, 255)",
-                      fontSize: 16,
-                    },
-                  },
-                  tooltips: {
-                    callbacks: {
-                      label: function (tooltipItem: any) {
-                        var label = "";
-                        label += Math.round(tooltipItem.yLabel * 100) / 100;
-                        return label + " Relatórios";
+                        // If you click on at least 1 element ...
+                        if (element.length > 0) {
+                          // Logs it
+                          if (element[0]._datasetIndex === 0) {
+                            //Primeiro Dataset
+                            let auxList = [
+                              "FLR",
+                              "SEP",
+                              "CME",
+                              "IPS",
+                              "MPC",
+                              "GST",
+                              "RBE",
+                              "Report",
+                            ];
+                            // console.log(auxList[element[0]._index]);
+                            setAuxIndexSelected(auxList[element[0]._index]);
+                            setOpenModal(true);
+                            //Aqui eu pego o index da barrinha seguindo a ordem das informações (0 : FLR, 1: SEP, 2: CME...)
+                            // console.log(auxFilter);
+                          }
+                        }
                       },
-                    },
-                  },
-                  title: {
-                    display: true,
-                    position: "top",
-                    fontSize: 20,
-                    fontColor: "rgb(255, 255, 255)",
-                    text: "Todos os Relatórios",
-                  },
-                  scales: {
-                    yAxes: [
-                      {
-                        scaleLabel: {
-                          display: true,
-                          labelString: "Quantidade",
-                          fontColor: "#fff",
-                          lineHeight: 2.0,
-                          fontSize: 20,
-                          fontFamily: "Poppins",
-                        },
-                        gridLines: {
-                          color: "rgba(255,255,255,0.1)",
-                        },
-                        ticks: {
-                          fontColor: "#fff",
-                          fontFamily: "Poppins",
-                          fontSize: "16",
+                      legend: {
+                        display: true,
+                        labels: {
+                          fontColor: "rgb(255, 255, 255)",
+                          fontSize: 16,
                         },
                       },
-                    ],
-                    xAxes: [
-                      {
-                        ticks: {
-                          display: true,
-                          fontColor: "#fff",
-                          fontFamily: "Poppins",
-                          fontSize: "16",
-                        },
-                        scaleLabel: {
-                          display: true,
-                          labelString: "Tipos",
-                          fontColor: "#fff",
-                          lineHeight: 2.0,
-                          fontSize: 20,
-                          fontFamily: "Poppins",
+                      tooltips: {
+                        callbacks: {
+                          label: function (tooltipItem: any) {
+                            var label = "";
+                            label += Math.round(tooltipItem.yLabel * 100) / 100;
+                            return label + " Relatórios";
+                          },
                         },
                       },
-                    ],
-                  },
-                }}
-              />
-            </ChartContent>
+                      title: {
+                        display: true,
+                        position: "top",
+                        fontSize: 20,
+                        fontColor: "rgb(255, 255, 255)",
+                        text: "Todos os Relatórios",
+                      },
+                      scales: {
+                        yAxes: [
+                          {
+                            scaleLabel: {
+                              display: true,
+                              labelString: "Quantidade",
+                              fontColor: "#fff",
+                              lineHeight: 2.0,
+                              fontSize: 20,
+                              fontFamily: "Poppins",
+                            },
+                            gridLines: {
+                              color: "rgba(255,255,255,0.1)",
+                            },
+                            ticks: {
+                              fontColor: "#fff",
+                              fontFamily: "Poppins",
+                              fontSize: "16",
+                            },
+                          },
+                        ],
+                        xAxes: [
+                          {
+                            ticks: {
+                              display: true,
+                              fontColor: "#fff",
+                              fontFamily: "Poppins",
+                              fontSize: "16",
+                            },
+                            scaleLabel: {
+                              display: true,
+                              labelString: "Tipos",
+                              fontColor: "#fff",
+                              lineHeight: 2.0,
+                              fontSize: 20,
+                              fontFamily: "Poppins",
+                            },
+                          },
+                        ],
+                      },
+                    }}
+                  />
+                </ChartContent>
+              </>
+            ) : (
+              <Table striped bordered hover variant="dark" responsive="md">
+                <thead>
+                  <tr>
+                    <th>Tipo de Mensagem</th>
+                    <th>Data</th>
+                    <th>Mensagem</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allRelatorySDate?.map(
+                    (information: any, indexMap: number) => (
+                      <tr
+                        key={indexMap}
+                        onClick={() => {
+                          setActivePage("ThirdPage");
+                          setAuxRelatoryView(information);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <td>{information.messageType}</td>
+                        <td>
+                          {FormateDateDonki(information.messageIssueTime)}
+                        </td>
+                        <td className="limitTdTable">
+                          {information.messageBody.slice(152, 6000)}
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </Table>
+            )}
           </>
         ) : (
           ""

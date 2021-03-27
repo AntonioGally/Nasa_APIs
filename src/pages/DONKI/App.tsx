@@ -3,6 +3,7 @@ import { useDonkiContext } from "../../context/DonkiContext";
 import styled from "styled-components";
 import Sidebar from "./components/Sidebar";
 import FirstPage from "./components/FirstPage";
+import SecondPage from "./components/SecondPage";
 import ThirdPage from "./components/ThirdPage";
 
 const DONKI: React.FC = () => {
@@ -12,6 +13,7 @@ const DONKI: React.FC = () => {
       <Container>
         <Sidebar />
         {activePage === "FirstPage" && <FirstPage />}
+        {activePage === "SecondPage" && <SecondPage />}
         {activePage === "ThirdPage" && <ThirdPage />}
       </Container>
     </>
