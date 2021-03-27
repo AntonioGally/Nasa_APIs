@@ -46,19 +46,34 @@ export function MonthVerification(date: any) {
 
   var auxStartDay = arrStartDate[0] + arrStartDate[1];
   var auxStartMonth = arrStartDate[3] + arrStartDate[4];
+  var auxStartYear =
+    arrStartDate[6] + arrStartDate[7] + arrStartDate[8] + arrStartDate[9];
 
   var auxEndDay = arrEndDate[0] + arrEndDate[1];
   var auxEndMonth = arrEndDate[3] + arrEndDate[4];
+  var auxEndYear =
+    arrEndDate[6] + arrEndDate[7] + arrEndDate[8] + arrEndDate[9];
 
-  if (auxStartMonth === auxEndMonth) {
-    return true;
-  } else if (Number(auxStartDay) - Number(auxEndDay) >= 0) {
-    if (Number(auxEndMonth) - Number(auxStartMonth) === 1) {
+  if (Number(auxStartYear) <= 2010) {
+    //Aparentemente só existem registros a partir de 2010
+    return false;
+  } else if (
+    Number(auxEndYear) !== Number(auxStartYear) &&
+    Number(auxStartMonth) !== 12
+  ) {
+    //se os anos forem diferentes e o mes de inicio nao for mes 12, então ta inválido
+    return false;
+  } else {
+    if (auxStartMonth === auxEndMonth) {
       return true;
-    } else if (Number(auxStartMonth) === 12 && Number(auxEndMonth) === 1) {
-      return true;
+    } else if (Number(auxStartDay) - Number(auxEndDay) >= 0) {
+      if (Number(auxEndMonth) - Number(auxStartMonth) === 1) {
+        return true;
+      } else if (Number(auxStartMonth) === 12 && Number(auxEndMonth) === 1) {
+        return true;
+      } else return false;
     } else return false;
-  } else return false;
+  }
 
   // se os meses forem iguais = válido
   // se os meses nao forem iguais, eu preciso saber se a diferença entre os dias é maior que 0, se for, válido, se n for, significa que é mais de um mês

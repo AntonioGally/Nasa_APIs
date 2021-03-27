@@ -18,10 +18,16 @@ export interface Props {
   open: boolean;
   onClose: any;
   index: string;
+  SpecificDate?: boolean;
 }
 
-const FirstTab: React.FC<Props> = ({ onClose, open, index }) => {
-  const { auxFilter, setActivePage, setAuxRelatoryView } = useDonkiContext();
+const FirstTab: React.FC<Props> = ({ onClose, open, index, SpecificDate }) => {
+  const {
+    auxFilter,
+    auxFilterSDate,
+    setActivePage,
+    setAuxRelatoryView,
+  } = useDonkiContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
   const StyledModal = withStyles({
@@ -94,22 +100,53 @@ const FirstTab: React.FC<Props> = ({ onClose, open, index }) => {
               </tr>
             </thead>
             <tbody>
-              {auxFilter[index].map((information: any, indexMap: number) => (
-                <tr
-                  key={indexMap}
-                  onClick={() => {
-                    setActivePage("ThirdPage");
-                    setAuxRelatoryView(information);
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <td>{information.messageType}</td>
-                  <td>{FormateDateDonki(information.messageIssueTime)}</td>
-                  <td className="limitTdTable">
-                    {information.messageBody.slice(152, 6000)}
-                  </td>
-                </tr>
-              ))}
+              {!SpecificDate ? (
+                <>
+                  {auxFilter[index].map(
+                    (information: any, indexMap: number) => (
+                      <tr
+                        key={indexMap}
+                        onClick={() => {
+                          setActivePage("ThirdPage");
+                          setAuxRelatoryView(information);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <td>{information.messageType}</td>
+                        <td>
+                          {FormateDateDonki(information.messageIssueTime)}
+                        </td>
+                        <td className="limitTdTable">
+                          {information.messageBody.slice(152, 6000)}
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </>
+              ) : (
+                <>
+                  {auxFilterSDate[index].map(
+                    (information: any, indexMap: number) => (
+                      <tr
+                        key={indexMap}
+                        onClick={() => {
+                          setActivePage("ThirdPage");
+                          setAuxRelatoryView(information);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <td>{information.messageType}</td>
+                        <td>
+                          {FormateDateDonki(information.messageIssueTime)}
+                        </td>
+                        <td className="limitTdTable">
+                          {information.messageBody.slice(152, 6000)}
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </>
+              )}
             </tbody>
           </Table>
         </DialogContent>

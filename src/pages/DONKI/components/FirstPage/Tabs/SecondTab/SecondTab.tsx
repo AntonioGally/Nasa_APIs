@@ -55,6 +55,25 @@ const FirstPage: React.FC = () => {
     setActivePage,
   } = useDonkiContext();
 
+  const CleanVariable = () => {
+    FLR.splice(0, FLR.length);
+    setFLR(FLR);
+    SEP.splice(0, SEP.length);
+    setSEP(SEP);
+    CME.splice(0, CME.length);
+    setCME(CME);
+    IPS.splice(0, IPS.length);
+    setIPS(IPS);
+    MPC.splice(0, MPC.length);
+    setMPC(MPC);
+    GST.splice(0, GST.length);
+    setGST(GST);
+    RBE.splice(0, RBE.length);
+    setRBE(RBE);
+    Report.splice(0, Report.length);
+    setReport(Report);
+  };
+
   const SubmitForm = (data: TextForm) => {
     setLoading(true);
     var start_date = FormateDateInput(data.startDate);
@@ -80,10 +99,11 @@ const FirstPage: React.FC = () => {
         //Válido
         setErros("");
         const request = async () => {
+          CleanVariable();
           await getSpecificDateRelatory(MyKey(), start_date, end_date).then(
             (data: any) => {
-              setAllRelatorySDate(data);
               setLoading(false);
+              setAllRelatorySDate(data);
               data.map((i: any, index: number) => {
                 if (i.messageType === "FLR") {
                   FLR?.push(data[index]);
@@ -127,7 +147,8 @@ const FirstPage: React.FC = () => {
         };
         request();
       } else {
-        setErros("Insira um intervalo de no máximo 30 dias");
+        setLoading(false);
+        setErros("Insira um intervalo de no máximo 30 dias, a partir de 2010");
       }
     }
   };
@@ -468,6 +489,7 @@ const FirstPage: React.FC = () => {
             open={openModal}
             onClose={() => setOpenModal(false)}
             index={auxIndexSelected}
+            SpecificDate={true}
           />
         )}
       </Container>
