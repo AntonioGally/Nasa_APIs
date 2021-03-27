@@ -8,11 +8,11 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import { Table } from "react-bootstrap";
 
-import { FormateDateDonki } from "../../../../../../services/dateFormater";
-import "../styles.css";
-import { Title, CloseIcon } from "./FirstTabStyle";
+import { FormateDateDonki } from "../../../../../services/dateFormater";
+import "./styles.css";
+import { Title, CloseIcon } from "./FirstTab/FirstTabStyle";
 
-import { useDonkiContext } from "../../../../../../context/DonkiContext";
+import { useDonkiContext } from "../../../../../context/DonkiContext";
 
 export interface Props {
   open: boolean;
@@ -21,7 +21,7 @@ export interface Props {
 }
 
 const FirstTab: React.FC<Props> = ({ onClose, open, index }) => {
-  const { auxFilter, setActivePage } = useDonkiContext();
+  const { auxFilter, setActivePage, setAuxRelatoryView } = useDonkiContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
   const StyledModal = withStyles({
@@ -97,7 +97,10 @@ const FirstTab: React.FC<Props> = ({ onClose, open, index }) => {
               {auxFilter[index].map((information: any, indexMap: number) => (
                 <tr
                   key={indexMap}
-                  onClick={() => setActivePage("ThirdPage")}
+                  onClick={() => {
+                    setActivePage("ThirdPage");
+                    setAuxRelatoryView(information);
+                  }}
                   style={{ cursor: "pointer" }}
                 >
                   <td>{information.messageType}</td>

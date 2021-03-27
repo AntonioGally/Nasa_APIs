@@ -4,6 +4,7 @@ import { useDonkiContext } from "../../../../../../context/DonkiContext";
 import MyKey from "../../../../../../MyKey";
 import { notificationStructure } from "../../../../../../@types/donki";
 import { Bar } from "react-chartjs-2";
+import Modal from "../Modal";
 import {
   Container,
   ExplainText,
@@ -417,6 +418,13 @@ const FirstPage: React.FC = () => {
           </>
         ) : (
           ""
+        )}
+        {openModal && (
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            index={auxIndexSelected}
+          />
         )}
       </Container>
     </>

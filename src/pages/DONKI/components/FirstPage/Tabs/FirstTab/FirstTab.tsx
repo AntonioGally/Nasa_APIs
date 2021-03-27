@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Spinner } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import MyKey from "../../../../../../MyKey";
 import { notificationStructure } from "../../../../../../@types/donki";
 import { Container, ExplainText, ChartContent } from "./FirstTabStyle";
 import { useDonkiContext } from "../../../../../../context/DonkiContext";
+import { FormateDateDonki } from "../../../../../../services/dateFormater";
 
-import Modal from "./Modal";
+import Modal from "../Modal";
 
 const FirstPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const [auxWindowWidth, setAuxWindowWidth] = useState(0);
   const [auxIndexSelected, setAuxIndexSelected] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [FLR, setFLR] = useState<notificationStructure[]>([]);
@@ -28,8 +31,12 @@ const FirstPage: React.FC = () => {
     getAllRelatory,
     auxFilter,
     setAuxFilter,
+    setActivePage,
+    setAuxRelatoryView,
   } = useDonkiContext();
   useEffect(() => {
+    setAuxWindowWidth(window.innerWidth);
+    console.log(auxWindowWidth);
     setLoading(true);
     const request = async () => {
       const result = await getAllRelatory(MyKey());
@@ -128,7 +135,7 @@ const FirstPage: React.FC = () => {
             <span className="sr-only">Loading...</span>
           </Spinner>
         </div>
-      ) : (
+      ) : auxWindowWidth > 768 ? (
         <ChartContent>
           <Bar
             data={{
@@ -279,6 +286,34 @@ const FirstPage: React.FC = () => {
             }}
           />
         </ChartContent>
+      ) : (
+        <Table striped bordered hover variant="dark" responsive="md">
+          <thead>
+            <tr>
+              <th onClick={() => console.log(allRelatory)}>Tipo de Mensagem</th>
+              <th>Data</th>
+              <th>Mensagem</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allRelatory?.map((information: any, indexMap: number) => (
+              <tr
+                key={indexMap}
+                onClick={() => {
+                  setActivePage("ThirdPage");
+                  setAuxRelatoryView(information);
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <td>{information.messageType}</td>
+                <td>{FormateDateDonki(information.messageIssueTime)}</td>
+                <td className="limitTdTable">
+                  {information.messageBody.slice(152, 6000)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       )}
       {openModal && (
         <Modal

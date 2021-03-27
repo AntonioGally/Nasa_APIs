@@ -140,7 +140,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 4. Envie as suas alterações: `git push origin my-feature`
 
 ---
-
 ## 🦸 Autor
 
 <a href="https://www.antoniogally.tk/#/">
@@ -149,3 +148,4 @@ As seguintes ferramentas foram usadas na construção do projeto:
  <br />
 
 ---
+

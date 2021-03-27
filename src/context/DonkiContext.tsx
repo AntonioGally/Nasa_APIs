@@ -11,6 +11,10 @@ export default function DonkiProvider({ children }: any) {
     notificationStructure[]
   >(); // Dados da Segunda Tab da primeira página
   const [auxFilterSDate, setAuxFilterSDate] = useState({}); //Filtro da segunda tab da primeira página
+  const [
+    auxRelatoryView,
+    setAuxRelatoryView,
+  ] = useState<notificationStructure>(); // Aqui eu guardo a informação do relatório que está sendo visto na terceira página
   //Função da primeira tab da página "Análise Geral"
   const getAllRelatory = (api_key: string) => {
     const info = Promise.all([
@@ -66,6 +70,8 @@ export default function DonkiProvider({ children }: any) {
         setAllRelatorySDate,
         auxFilterSDate,
         setAuxFilterSDate,
+        auxRelatoryView,
+        setAuxRelatoryView,
       }}
     >
       {children};
@@ -88,6 +94,8 @@ export function useDonkiContext() {
     setAllRelatorySDate,
     auxFilterSDate,
     setAuxFilterSDate,
+    auxRelatoryView,
+    setAuxRelatoryView,
   }: any = context;
   return {
     activePage,
@@ -102,5 +110,7 @@ export function useDonkiContext() {
     setAllRelatorySDate,
     auxFilterSDate,
     setAuxFilterSDate,
+    auxRelatoryView,
+    setAuxRelatoryView,
   };
 }
