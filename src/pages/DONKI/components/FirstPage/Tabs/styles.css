@@ -1,0 +1,15 @@
+.MyTab {
+  color: pink;
+  font-family: "Poppins" !important;
+  font-size: 20px;
+}
+.MyTab:hover {
+  color: pink !important;
+}
+
+.limitTdTable {
+  max-width: 550px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
