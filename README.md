@@ -28,6 +28,7 @@
  <a href="#-como-executar-o-projeto">Como executar</a> • 
  <a href="#-tecnologias">Tecnologias</a> • 
  <a href="#-autor">Autor</a> • 
+ <a href="https://nasapis.netlify.app/#/">Demo</a>
 </p>
 
 ## 💻 Sobre o projeto
@@ -72,7 +73,8 @@ O layout da aplicação está disponível no Figma:
   <img alt="Nasa_APIs"  width="380px"  title="#Nasa_APIs" src="./src/assets/readme/print2.jpeg">  
 </p>
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Nasa_APIs"  width="380px"  title="#Nasa_APIs" src="./src/assets/readme/print3.jpeg">
+  <img alt="Nasa_APIs"  width="380px"  style="margin-right:20px" title="#Nasa_APIs" src="./src/assets/readme/print3.jpeg">
+  <img alt="Nasa_APIs"  width="380px"  title="#Nasa_APIs" src="./src/assets/readme/print4.jpeg">  
 </p>
 
 ---
