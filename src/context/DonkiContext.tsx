@@ -17,7 +17,8 @@ export default function DonkiProvider({ children }: any) {
   ] = useState<notificationStructure>(); // Aqui eu guardo a informação do relatório que está sendo visto na terceira página
   const [dataSpecificType, setDataSpecificType] = useState<
     notificationStructure[]
-  >();
+  >(); //Aqui ficam as informações da primeira tab da segunda página
+  const [dataSDateType, setDataSDateType] = useState<notificationStructure[]>(); //Aqui ficam as informações da segunda tab da segunda página
   //Função da primeira tab da página "Análise Geral"
   const getAllRelatory = (api_key: string) => {
     const info = Promise.all([
@@ -76,6 +77,29 @@ export default function DonkiProvider({ children }: any) {
     });
     return info;
   };
+
+  const getSDateTypeRelatory = (
+    api_key: string,
+    type: string,
+    start_date: string,
+    end_date: string
+  ) => {
+    const info = Promise.all([
+      api.get(
+        `https://api.nasa.gov/DONKI/notifications?start_date=${start_date}&end_date=${end_date}&type=${type}&api_key=${api_key}`,
+        {
+          validateStatus: function (status) {
+            return status < 501; // Resolve only if the status code is less than 500
+          },
+        }
+      ),
+    ]).then(async (responses) => {
+      const [PushNotifications] = responses;
+      const results = await PushNotifications.data;
+      return results;
+    });
+    return info;
+  };
   return (
     <DonkiContext.Provider
       value={{
@@ -96,6 +120,9 @@ export default function DonkiProvider({ children }: any) {
         getTypeRelatory,
         dataSpecificType,
         setDataSpecificType,
+        getSDateTypeRelatory,
+        dataSDateType,
+        setDataSDateType,
       }}
     >
       {children};
@@ -123,6 +150,9 @@ export function useDonkiContext() {
     getTypeRelatory,
     dataSpecificType,
     setDataSpecificType,
+    getSDateTypeRelatory,
+    dataSDateType,
+    setDataSDateType,
   }: any = context;
   return {
     activePage,
@@ -142,5 +172,8 @@ export function useDonkiContext() {
     getTypeRelatory,
     dataSpecificType,
     setDataSpecificType,
+    getSDateTypeRelatory,
+    dataSDateType,
+    setDataSDateType,
   };
 }

@@ -35,4 +35,7 @@ export const Title = styled.div`
     margin-bottom: 10px;
   }
 `;
-export const InformationContent = styled.div``;
+export const InformationContent = styled.div`
+  width: 100%;
+  margin-top: 2%;
+`;
