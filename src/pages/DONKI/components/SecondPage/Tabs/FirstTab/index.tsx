@@ -10,6 +10,7 @@ const FirstTab: React.FC = () => {
     if (!dataSpecificType) {
       Request();
     }
+    // eslint-disable-next-line
   }, []);
   const {
     getTypeRelatory,
