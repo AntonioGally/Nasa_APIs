@@ -8,7 +8,11 @@ export const CloseIcon = styled(CloseOutline)`
   cursor: pointer;
   flex-shrink: 0;
 `;
-
+export const TitleContent = styled.div`
+  display: flex;
+  max-width: 100%;
+  overflow-x: scroll;
+`;
 export const AsteroidName = styled.a`
   font-family: "Poppins";
   font-style: normal;
@@ -18,6 +22,7 @@ export const AsteroidName = styled.a`
   text-decoration: underline;
   color: #fff;
   margin: 0;
+  white-space: nowrap;
 `;
 export const MyDate = styled.h1`
   font-family: "Poppins";
@@ -43,6 +48,7 @@ export const TextContent = styled.div`
   margin: 0 auto;
   @media (max-width: 700px) {
     padding-bottom: 50px;
+    width: 100%;
   }
 `;
 export const Info = styled.h2`
@@ -54,6 +60,7 @@ export const Info = styled.h2`
   color: #fff;
   margin-bottom: 50px;
   @media (max-width: 900px) {
+    font-size: 18px;
     margin-bottom: 10%;
     line-height: unset;
   }

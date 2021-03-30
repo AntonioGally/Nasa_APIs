@@ -263,8 +263,7 @@ const FirstPage: React.FC = () => {
           <div
             style={{
               width: "calc(100% - 300px)",
-              marginLeft: "auto",
-              marginTop: "10%",
+              margin: "10% auto 0",
               textAlign: "center",
             }}
           >

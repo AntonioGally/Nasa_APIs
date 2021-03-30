@@ -27,6 +27,7 @@ import {
   LittleText,
   MyImage,
   CloseIcon,
+  TitleContent,
 } from "./ModalStyles";
 
 export interface Props {
@@ -104,15 +105,15 @@ const FirstPage: React.FC<Props> = ({ open, onClose }) => {
               alignItems: "center",
             }}
           >
-            <div style={{ display: "flex" }}>
+            <TitleContent>
               <AsteroidName
                 href={`${auxAsteroidInformation.nasa_jpl_url};orb=1;cov=0;log=0;cad=0#orb`}
                 target="_blank"
               >
                 {auxAsteroidInformation.name}{" "}
               </AsteroidName>{" "}
-              <MyDate> - {additionalInfo.Date}</MyDate>
-            </div>
+              <MyDate>{additionalInfo.Date}</MyDate>
+            </TitleContent>
             <div>
               <CloseIcon onClick={onClose} />
             </div>

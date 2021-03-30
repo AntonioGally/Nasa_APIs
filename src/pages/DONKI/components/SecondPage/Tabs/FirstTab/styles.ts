@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-top: 5%;
   width: 100%;
+  overflow-x: auto;
 `;
 export const FormContent = styled.div`
   > div > select {

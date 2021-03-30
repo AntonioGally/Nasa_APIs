@@ -122,45 +122,47 @@ const SecondPage: React.FC = () => {
       setErros(request);
     } else {
       setErros("");
+      if (request.close_approach_data) {
+        var auxList = request.close_approach_data.length;
+        var auxMin =
+          request.close_approach_data[0].close_approach_date[0] +
+          request.close_approach_data[0].close_approach_date[1] +
+          request.close_approach_data[0].close_approach_date[2] +
+          request.close_approach_data[0].close_approach_date[3]; // Aqui eu pego o ano minimo
 
-      var auxList = request.close_approach_data.length;
-      var auxMin =
-        request.close_approach_data[0].close_approach_date[0] +
-        request.close_approach_data[0].close_approach_date[1] +
-        request.close_approach_data[0].close_approach_date[2] +
-        request.close_approach_data[0].close_approach_date[3]; // Aqui eu pego o ano minimo
+        var auxMax =
+          request.close_approach_data[auxList - 1].close_approach_date[0] +
+          request.close_approach_data[auxList - 1].close_approach_date[1] +
+          request.close_approach_data[auxList - 1].close_approach_date[2] +
+          request.close_approach_data[auxList - 1].close_approach_date[3]; // Aqui eu pego o ano máximo
 
-      var auxMax =
-        request.close_approach_data[auxList - 1].close_approach_date[0] +
-        request.close_approach_data[auxList - 1].close_approach_date[1] +
-        request.close_approach_data[auxList - 1].close_approach_date[2] +
-        request.close_approach_data[auxList - 1].close_approach_date[3]; // Aqui eu pego o ano máximo
-
-      var count = 0;
-      var yearList = [];
-      while (count < auxList) {
-        var auxObj = {
-          value: Number(
-            request.close_approach_data[count].close_approach_date[0] +
-              request.close_approach_data[count].close_approach_date[1] +
-              request.close_approach_data[count].close_approach_date[2] +
-              request.close_approach_data[count].close_approach_date[3]
-            // Aqui eu formato os anos que a api devolve em um objeto para que eu consiga inseri-lo de forma padronizada no componente do material
-          ),
-          label: FormateDateApi(
-            request.close_approach_data[count].close_approach_date
-          ),
+        var count = 0;
+        var yearList = [];
+        while (count < auxList) {
+          var auxObj = {
+            value: Number(
+              request.close_approach_data[count].close_approach_date[0] +
+                request.close_approach_data[count].close_approach_date[1] +
+                request.close_approach_data[count].close_approach_date[2] +
+                request.close_approach_data[count].close_approach_date[3]
+              // Aqui eu formato os anos que a api devolve em um objeto para que eu consiga inseri-lo de forma padronizada no componente do material
+            ),
+            label: FormateDateApi(
+              request.close_approach_data[count].close_approach_date
+            ),
+          };
+          yearList.push(auxObj);
+          count++;
+        } // Aqui eu pego todos os anos do request
+        setAuxListYear(yearList);
+        //O material ui não conseguiu renderizar todas as marcações
+        var obj = {
+          min: Number(auxMin),
+          max: Number(auxMax),
         };
-        yearList.push(auxObj);
-        count++;
-      } // Aqui eu pego todos os anos do request
-      setAuxListYear(yearList);
-      //O material ui não conseguiu renderizar todas as marcações
-      var obj = {
-        min: Number(auxMin),
-        max: Number(auxMax),
-      };
-      setAuxDate(obj); //Aqui eu seto a data mínima e a máxima
+        setAuxDate(obj); //Aqui eu seto a data mínima e a máxima
+      }
+
       setLookupData(request);
       setLoading(false);
     }
@@ -271,73 +273,90 @@ const SecondPage: React.FC = () => {
                   }}
                 />
               </SliderContent>
-              {lookupData.close_approach_data.map((i: any, index: number) => {
-                //Map de todos os dados dentro do array do asteroid
-                var auxDateApi =
-                  i.close_approach_date[0] +
-                  i.close_approach_date[1] +
-                  i.close_approach_date[2] +
-                  i.close_approach_date[3];
+              {lookupData.close_approach_data ? (
+                <>
+                  {lookupData.close_approach_data.map(
+                    (i: any, index: number) => {
+                      //Map de todos os dados dentro do array do asteroid
+                      var auxDateApi =
+                        i.close_approach_date[0] +
+                        i.close_approach_date[1] +
+                        i.close_approach_date[2] +
+                        i.close_approach_date[3];
 
-                if (Number(auxDateApi) === value) {
-                  return (
-                    <>
-                      <TextContent key={index}>
-                        <Title style={{ marginBottom: "5%" }}>
-                          {FormateDateApi(i.close_approach_date)}
-                        </Title>
-                        <Grid container spacing={3}>
-                          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                            <TextGrid>
-                              <div>
-                                <Info>
-                                  Velocidade:{" "}
-                                  {Number(
-                                    i.relative_velocity.kilometers_per_second
-                                  ).toFixed(2)}{" "}
-                                  Km/s
-                                </Info>
-                                <Info>
-                                  Distância:{" "}
-                                  {Number(i.miss_distance.lunar).toFixed(2)}{" "}
-                                  Luas
-                                </Info>
-                              </div>
-                              <div>
-                                <LittleText>1 Lua = 384.400 km</LittleText>
-                              </div>
-                            </TextGrid>
-                          </Grid>
-                          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                            {photos.map((x, index) => {
-                              //Aqui eu tenho uma lista das imagens LOCAIS. Para controlar a exibição delas, simplesmente comparo com
-                              //a label de cada uma com o parâmetro "orbiting_body" da API, se forem iguais, eu mostro
-                              if (x.label === i.orbiting_body) {
-                                return (
-                                  <div key={index}>
-                                    <Info style={{ marginBottom: 10 }}>
-                                      Órbita: {x.LabelPt}
-                                    </Info>
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        width: "100%",
-                                        justifyContent: "center",
-                                      }}
-                                    >
-                                      <MyImage src={x.image} />;
+                      if (Number(auxDateApi) === value) {
+                        return (
+                          <>
+                            <TextContent key={index}>
+                              <Title style={{ marginBottom: "5%" }}>
+                                {FormateDateApi(i.close_approach_date)}
+                              </Title>
+                              <Grid container spacing={3}>
+                                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                  <TextGrid>
+                                    <div>
+                                      <Info>
+                                        Velocidade:{" "}
+                                        {Number(
+                                          i.relative_velocity
+                                            .kilometers_per_second
+                                        ).toFixed(2)}{" "}
+                                        Km/s
+                                      </Info>
+                                      <Info>
+                                        Distância:{" "}
+                                        {Number(i.miss_distance.lunar).toFixed(
+                                          2
+                                        )}{" "}
+                                        Luas
+                                      </Info>
                                     </div>
-                                  </div>
-                                );
-                              } else return "";
-                            })}
-                          </Grid>
-                        </Grid>
-                      </TextContent>
-                    </>
-                  );
-                } else return "";
-              })}
+                                    <div>
+                                      <LittleText>
+                                        1 Lua = 384.400 km
+                                      </LittleText>
+                                    </div>
+                                  </TextGrid>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                  {photos.map((x, index) => {
+                                    //Aqui eu tenho uma lista das imagens LOCAIS. Para controlar a exibição delas, simplesmente comparo com
+                                    //a label de cada uma com o parâmetro "orbiting_body" da API, se forem iguais, eu mostro
+                                    if (x.label === i.orbiting_body) {
+                                      return (
+                                        <div key={index}>
+                                          <Info style={{ marginBottom: 10 }}>
+                                            Órbita: {x.LabelPt}
+                                          </Info>
+                                          <div
+                                            style={{
+                                              display: "flex",
+                                              width: "100%",
+                                              justifyContent: "center",
+                                            }}
+                                          >
+                                            <MyImage src={x.image} />;
+                                          </div>
+                                        </div>
+                                      );
+                                    } else return "";
+                                  })}
+                                </Grid>
+                              </Grid>
+                            </TextContent>
+                          </>
+                        );
+                      } else return "";
+                    }
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className="text-danger" style={{ fontSize: 18 }}>
+                    Os dados do asteróide não estão disponíveis
+                  </div>
+                </>
+              )}
             </TextContainer>
           </>
         )}

@@ -18,6 +18,7 @@ export const SvgToggle = styled(Menu)`
 export const SvgToggleClose = styled(CloseOutline)`
   display: none;
   @media (max-width: 1100px) {
+    flex-shrink: 0;
     display: unset;
     cursor: pointer;
     width: 50px;
@@ -34,8 +35,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
+  overflow-y: auto;
   @media (max-width: 1100px) {
-    overflow-y: auto;
     margin-left: -300px;
     transition: margin 0.5s ease;
     &.openToggle {

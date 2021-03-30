@@ -8,7 +8,7 @@ export const Container = styled.div`
   margin-left: 25%;
   @media (max-width: 1100px) {
     margin: auto;
-    max-width: 85%;
+    max-width: 95%;
   }
   max-height: 100vh;
   overflow-y: auto;

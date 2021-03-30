@@ -7,7 +7,7 @@ export const Container = styled.div`
   margin-left: 25%;
   @media (max-width: 1100px) {
     margin: auto;
-    max-width: 85%;
+    max-width: 95%;
   }
   max-height: 100vh;
   overflow-y: auto;
@@ -71,11 +71,15 @@ export const MyImage = styled.img`
   }
   @media (max-width: 1100px) {
     width: 100%;
+    margin-bottom: 20px;
     padding: 0;
   }
 `;
 
 export const Code = styled.div`
+  max-width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 500;

@@ -7,7 +7,7 @@ export const Container = styled.div`
   margin-left: 25%;
   @media (max-width: 1100px) {
     margin: auto;
-    max-width: 85%;
+    max-width: 95%;
   }
   max-height: 100vh;
   overflow-y: auto;
@@ -85,6 +85,7 @@ export const Title = styled.div`
   color: white;
 `;
 export const MyInput = styled.input`
+padding-left: 15px;
   width: 250px;
   height: 40px;
   margin-left: 10px;

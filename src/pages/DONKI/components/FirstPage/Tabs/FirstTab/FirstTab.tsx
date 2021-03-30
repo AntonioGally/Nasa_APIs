@@ -91,7 +91,7 @@ const FirstPage: React.FC = () => {
   return (
     <Container>
       <ExplainText>
-        <ul>
+        <ul style={{ paddingLeft: 20 }}>
           <li>
             <span>FLR: </span>Explosão solar (Solar Flare)
           </li>

@@ -16,16 +16,21 @@ export const MyCard = styled.div`
   @media (max-width: 600px) {
     margin-bottom: 10%;
   }
+  transition: all ease-in-out 0.4s;
+  > div {
+    transition: all ease-in-out 0.4s;
+    > div {
+      transition: all ease-in-out 0.4s;
+    }
+  }
   :hover {
     box-shadow: inset 0 30em 1em rgba(0, 0, 0, 0.2);
     transition: all ease-in-out 0.2s;
     > div {
       background: #000000;
       border: 1px solid #ffffff;
-      transition: all ease-in-out 0.4s;
       > div {
         color: white;
-        transition: all ease-in-out 0.4s;
       }
     }
   }
