@@ -11,7 +11,8 @@ export const CloseIcon = styled(CloseOutline)`
 export const TitleContent = styled.div`
   display: flex;
   max-width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
 `;
 export const AsteroidName = styled.a`
   font-family: "Poppins";
