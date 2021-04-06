@@ -1,13 +1,8 @@
 import React from "react";
 
-// import { Container } from './styles';
-
+import App from "./App";
 const EONET: React.FC = () => {
-  return (
-    <>
-      <h1 style={{ color: "white" }}>Mané</h1>
-    </>
-  );
+  return <App />;
 };
 
 export default EONET;
