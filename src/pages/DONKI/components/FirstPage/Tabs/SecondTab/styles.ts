@@ -4,6 +4,7 @@ import { RightArrowAlt } from "@styled-icons/boxicons-regular/RightArrowAlt";
 export const Container = styled.div`
   margin-top: 5%;
   width: 100%;
+  overflow-x: auto;
 `;
 
 export const ExplainText = styled.div`
@@ -61,6 +62,7 @@ export const Title = styled.div`
   }
 `;
 export const MyInput = styled.input`
+  padding-left: 15px;
   width: 250px;
   height: 40px;
   margin-left: 10px;

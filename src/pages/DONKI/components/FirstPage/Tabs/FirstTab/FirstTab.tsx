@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { Spinner } from "react-bootstrap";
-import { Table } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import MyKey from "../../../../../../MyKey";
 import { notificationStructure } from "../../../../../../@types/donki";
 import { Container, ExplainText, ChartContent } from "./FirstTabStyle";
@@ -91,7 +90,7 @@ const FirstPage: React.FC = () => {
   return (
     <Container>
       <ExplainText>
-        <ul>
+        <ul style={{ paddingLeft: 20 }}>
           <li>
             <span>FLR: </span>Explosão solar (Solar Flare)
           </li>

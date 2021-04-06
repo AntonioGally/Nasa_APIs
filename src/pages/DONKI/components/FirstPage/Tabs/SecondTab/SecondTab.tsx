@@ -264,7 +264,7 @@ const FirstPage: React.FC = () => {
         ) : allRelatorySDate && auxFilterSDate ? (
           <>
             <ExplainText>
-              <ul>
+              <ul style={{ padding: 20 }}>
                 <li>
                   <span>FLR: </span>
                   Explosão solar (Solar Flare)

@@ -38,20 +38,13 @@ const Sidebar: React.FC = () => {
               activePage.page === "SecondPage" ? "ButtonActiveApod" : ""
             }
           >
-            Intervalo de datas
+            Datas específicas
           </Button>
+
           <Button
             onClick={() => setActivePage({ page: "ThirdPage" })}
             className={
               activePage.page === "ThirdPage" ? "ButtonActiveApod" : ""
-            }
-          >
-            Única data
-          </Button>
-          <Button
-            onClick={() => setActivePage({ page: "FourthPage" })}
-            className={
-              activePage.page === "FourthPage" ? "ButtonActiveApod" : ""
             }
           >
             Fotos aleatórias

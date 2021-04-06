@@ -3,12 +3,13 @@ import { RightArrowAlt } from "@styled-icons/boxicons-regular/RightArrowAlt";
 export const Container = styled.div`
   margin-top: 5%;
   width: 100%;
+  overflow-x: auto;
 `;
 export const FormContent = styled.form`
   padding: 10px;
-  margin: 0 0 3% 3%;
+  margin: 0 0 3% 0;
   @media (max-width: 600px) {
-    margin: 10% 0 5% 3%;
+    margin: 10% 0 5% 0;
   }
   max-width: 1100px;
   > div {
@@ -64,6 +65,7 @@ export const Title = styled.div`
   }
 `;
 export const MyInput = styled.input`
+  padding-left: 15px;
   width: 250px;
   height: 40px;
   margin-left: 10px;

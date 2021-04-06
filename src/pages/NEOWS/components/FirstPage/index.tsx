@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MyKey from "../../../../MyKey";
-import { Spinner, Tooltip, OverlayTrigger } from "react-bootstrap";
+import { Spinner, Tooltip, OverlayTrigger, Table } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNeowsContext } from "../../../../context/NeowsContext";
 import { FormateDateInput } from "../../../../services/dateFormater";
@@ -40,6 +40,7 @@ const FirstPage: React.FC = () => {
   const [erros, setErros] = useState("");
   const [auxDate, setAuxDate] = useState("");
   const [open, setOpen] = useState(false);
+  const [auxWindowWidth, setAuxWindowWidth] = useState(0);
 
   const { register, handleSubmit, errors } = useForm<TextForm>();
 
@@ -57,6 +58,7 @@ const FirstPage: React.FC = () => {
     return true;
   }
   const SubmitForm = async (data: TextForm) => {
+    setAuxWindowWidth(window.innerWidth);
     setLoading(true);
     var finalDate = FormateDateInput(data.SpecificDate);
 
@@ -263,8 +265,7 @@ const FirstPage: React.FC = () => {
           <div
             style={{
               width: "calc(100% - 300px)",
-              marginLeft: "auto",
-              marginTop: "10%",
+              margin: "10% auto 0",
               textAlign: "center",
             }}
           >
@@ -279,116 +280,199 @@ const FirstPage: React.FC = () => {
           </div>
         ) : dataInformation ? (
           <>
-            <ContentChart>
-              <MyChart
-                //tava dando problema de renderização nesse componente (antes eu tava chamando o Bublle diretamente por aqui)
-                //quando eu digitava algo no input aparentemente mudava o state la do context e fazia esse componente renderizar denovo
-                //Então eu fiz um componente a parte passando as props necessárias, depois utilizei o memo e ficou show (menos 1 problema de renderização)
-                //! data={ {datasets: []} }
-                dataProps={{ datasets: dataConfig() }}
-                optionsProps={{
-                  onClick: function (e: any) {
-                    var element = this.getElementAtEvent(e);
+            {auxWindowWidth > 768 ? (
+              <>
+                <ContentChart>
+                  <MyChart
+                    //tava dando problema de renderização nesse componente (antes eu tava chamando o Bublle diretamente por aqui)
+                    //quando eu digitava algo no input aparentemente mudava o state la do context e fazia esse componente renderizar denovo
+                    //Então eu fiz um componente a parte passando as props necessárias, depois utilizei o memo e ficou show (menos 1 problema de renderização)
+                    //! data={ {datasets: []} }
+                    dataProps={{ datasets: dataConfig() }}
+                    optionsProps={{
+                      onClick: function (e: any) {
+                        var element = this.getElementAtEvent(e);
 
-                    // If you click on at least 1 element ...
-                    if (element.length > 0) {
-                      // Logs it
-                      if (element[0]._datasetIndex === 0) {
-                        // Se for o dataset de asteroid inofensivo eu pego as informações do index do dataset
-                        // setActivePage("SecondPage");
-                        setAuxAsteroidInformation(
-                          dataInformation[element[0]._index]
-                        );
-                        setOpen(true);
-                      } else if (element[0]._datasetIndex === 1) {
-                        // Mesma coisa aqui com os asteróides perigosos
-                        setAuxAsteroidInformation(
-                          dataInformationHadardous?.[element[0]._index]
-                        );
-                        setOpen(true);
-                      }
+                        // If you click on at least 1 element ...
+                        if (element.length > 0) {
+                          // Logs it
+                          if (element[0]._datasetIndex === 0) {
+                            // Se for o dataset de asteroid inofensivo eu pego as informações do index do dataset
+                            // setActivePage("SecondPage");
+                            setAuxAsteroidInformation(
+                              dataInformation[element[0]._index]
+                            );
+                            setOpen(true);
+                          } else if (element[0]._datasetIndex === 1) {
+                            // Mesma coisa aqui com os asteróides perigosos
+                            setAuxAsteroidInformation(
+                              dataInformationHadardous?.[element[0]._index]
+                            );
+                            setOpen(true);
+                          }
 
-                      // Here we get the data linked to the clicked bubble ...
-                      // var datasetLabel = this.config.data.datasets[
-                      //   element[0]._datasetIndex
-                      // ];
+                          // Here we get the data linked to the clicked bubble ...
+                          // var datasetLabel = this.config.data.datasets[
+                          //   element[0]._datasetIndex
+                          // ];
 
-                      // console.log(datasetLabel);
-                      // data gives you `x`, `y` and `r` values
-                      // var data = this.config.data.datasets[
-                      //   element[0]._datasetIndex
-                      // ].data[element[0]._index];
-                    }
-                  },
-                  legend: {
-                    display: true,
-                    labels: {
-                      fontColor: "rgb(255, 255, 255)",
-                      fontSize: 16,
-                    },
-                  },
-                  tooltips: {
-                    callbacks: {
-                      label: function (tooltipItem: any, data: any) {
-                        // var label =
-                        //   data.datasets[tooltipItem.datasetIndex].label || "";
-
-                        // if (label) {
-                        //   label += ": ";
-                        // }
-                        var label = "";
-                        label += Math.round(tooltipItem.yLabel * 100) / 100;
-                        return label + " Luas de distância";
+                          // console.log(datasetLabel);
+                          // data gives you `x`, `y` and `r` values
+                          // var data = this.config.data.datasets[
+                          //   element[0]._datasetIndex
+                          // ].data[element[0]._index];
+                        }
                       },
-                    },
-                  },
-                  title: {
-                    display: true,
-                    position: "top",
-                    fontSize: 20,
-                    fontColor: "rgb(255, 255, 255)",
-                    text: `${additionalInfo.Objects} ${
-                      additionalInfo.Objects > 1
-                        ? "objetos próximos"
-                        : "objeto próximo"
-                    } no dia ${additionalInfo.Date}`,
-                  },
-                  scales: {
-                    yAxes: [
-                      {
-                        scaleLabel: {
-                          display: true,
-                          labelString: "Distância da Terra",
-                          fontColor: "#fff",
-                          lineHeight: 2.0,
-                          fontSize: 20,
-                          fontFamily: "Poppins",
+                      legend: {
+                        display: true,
+                        labels: {
+                          fontColor: "rgb(255, 255, 255)",
+                          fontSize: 16,
                         },
-                        gridLines: {
-                          color: "#fff",
-                        },
-                        ticks: {
-                          fontColor: "#fff",
-                          fontFamily: "Poppins",
-                          fontSize: "16",
-                          // Include a Luas sign in the ticks
-                          callback: function (value: any) {
-                            return value + " Luas";
+                      },
+                      tooltips: {
+                        callbacks: {
+                          label: function (tooltipItem: any, data: any) {
+                            // var label =
+                            //   data.datasets[tooltipItem.datasetIndex].label || "";
+
+                            // if (label) {
+                            //   label += ": ";
+                            // }
+                            var label = "";
+                            label += Math.round(tooltipItem.yLabel * 100) / 100;
+                            return label + " Luas de distância";
                           },
                         },
                       },
-                    ],
-                    xAxes: [
-                      {
-                        ticks: {
-                          display: false,
-                        },
+                      title: {
+                        display: true,
+                        position: "top",
+                        fontSize: 20,
+                        fontColor: "rgb(255, 255, 255)",
+                        text: `${additionalInfo.Objects} ${
+                          additionalInfo.Objects > 1
+                            ? "objetos próximos"
+                            : "objeto próximo"
+                        } no dia ${additionalInfo.Date}`,
                       },
-                    ],
-                  },
-                }}
-              />
-            </ContentChart>
+                      scales: {
+                        yAxes: [
+                          {
+                            scaleLabel: {
+                              display: true,
+                              labelString: "Distância da Terra",
+                              fontColor: "#fff",
+                              lineHeight: 2.0,
+                              fontSize: 20,
+                              fontFamily: "Poppins",
+                            },
+                            gridLines: {
+                              color: "#fff",
+                            },
+                            ticks: {
+                              fontColor: "#fff",
+                              fontFamily: "Poppins",
+                              fontSize: "16",
+                              // Include a Luas sign in the ticks
+                              callback: function (value: any) {
+                                return value + " Luas";
+                              },
+                            },
+                          },
+                        ],
+                        xAxes: [
+                          {
+                            ticks: {
+                              display: false,
+                            },
+                          },
+                        ],
+                      },
+                    }}
+                  />
+                </ContentChart>
+              </>
+            ) : (
+              <>
+                <Table
+                  striped
+                  bordered
+                  hover
+                  variant="dark"
+                  responsive="md"
+                  style={{ marginBottom: "5%" }}
+                >
+                  <thead>
+                    <tr>
+                      <th>Distância</th>
+                      <th>Diâmetro</th>
+                      <th>Tipo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dataInformation.map((i: any, index: number) => (
+                      <tr
+                        key={index}
+                        onClick={() => {
+                          setAuxAsteroidInformation(dataInformation[index]);
+                          setOpen(true);
+                        }}
+                      >
+                        <td>
+                          {i.close_approach_data.map((x: any) => {
+                            return `${Number(x.miss_distance.lunar).toFixed(
+                              2
+                            )} Luas`;
+                          })}
+                        </td>
+                        <td>
+                          {(
+                            (i.estimated_diameter.meters
+                              .estimated_diameter_max +
+                              i.estimated_diameter.meters
+                                .estimated_diameter_min) /
+                            2
+                          ).toFixed(2)}{" "}
+                          Metros
+                        </td>
+                        <td>Inofensivo</td>
+                      </tr>
+                    ))}
+                    {dataInformationHadardous.map((i: any, index: number) => (
+                      <tr
+                        key={index}
+                        onClick={() => {
+                          setAuxAsteroidInformation(
+                            dataInformationHadardous[index]
+                          );
+                          setOpen(true);
+                        }}
+                      >
+                        <td>
+                          {i.close_approach_data.map((x: any) => {
+                            return `${Number(x.miss_distance.lunar).toFixed(
+                              2
+                            )} Luas`;
+                          })}
+                        </td>
+                        <td>
+                          {(
+                            (i.estimated_diameter.meters
+                              .estimated_diameter_max +
+                              i.estimated_diameter.meters
+                                .estimated_diameter_min) /
+                            2
+                          ).toFixed(2)}{" "}
+                          Metros
+                        </td>
+                        <td>Perigosos</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </>
+            )}
           </>
         ) : (
           ""

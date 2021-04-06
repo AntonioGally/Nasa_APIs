@@ -13,6 +13,7 @@ export const CloseIcon = styled(CloseOutline)`
 export const Container = styled.div`
   margin-top: 5%;
   width: 100%;
+  overflow-x: auto;
 `;
 
 export const Title = styled.div`

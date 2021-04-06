@@ -7,7 +7,7 @@ export const Container = styled.div`
   margin-left: 25%;
   @media (max-width: 1100px) {
     margin: auto;
-    max-width: 85%;
+    max-width: 95%;
   }
   max-height: 100vh;
   overflow-y: auto;
@@ -54,7 +54,6 @@ export const Text = styled.div`
   padding: 0 20px;
   margin-bottom: 30px;
   color: white;
-  text-align: justify;
   @media (max-width: 768px) {
     font-size: 13px;
     line-height: inherit;
@@ -83,9 +82,13 @@ export const MyImage = styled.img`
   @media (max-width: 1100px) {
     width: 100%;
     padding: 0;
+    margin-bottom: 20px;
   }
 `;
 export const Code = styled.div`
+  max-width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
