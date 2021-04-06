@@ -5,7 +5,6 @@ import SideBar from "./components/Sidebar";
 import FirstPage from "./components/FirstPage";
 import SecondPage from "./components/SecondPage";
 import ThirdPage from "./components/ThirdPage";
-import FourthPage from "./components/FourthPage";
 import About from "./components/About";
 
 const APOD: React.FC = () => {
@@ -17,7 +16,6 @@ const APOD: React.FC = () => {
         {activePage.page === "FirstPage" ? <FirstPage /> : ""}
         {activePage.page === "SecondPage" ? <SecondPage /> : ""}
         {activePage.page === "ThirdPage" ? <ThirdPage /> : ""}
-        {activePage.page === "FourthPage" ? <FourthPage /> : ""}
         {activePage.page === "AboutPage" ? <About /> : ""}
       </Container>
     </>

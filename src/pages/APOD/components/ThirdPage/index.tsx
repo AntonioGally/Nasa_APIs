@@ -1,54 +1,47 @@
 import React from "react";
 import MyKey from "../../../../MyKey";
-import { Spinner } from "react-bootstrap";
 import {
   Container,
   FormContent,
   Title,
   MyInput,
-  ImageContent,
   ArrowIcon,
-  MyImage,
   TextContent,
   TitleCarousel,
   Text,
+  ImageContent,
+  MyImage,
   VideoContent,
   MyVideo,
 } from "./styles";
-
+import { Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { Carousel } from "react-bootstrap";
 import { useApodContex } from "../../../../context/ApodContext";
 
-import {
-  FormateDateInput,
-  FormateDateApi,
-} from "../../../../services/dateFormater";
+import { FormateDateApi } from "../../../../services/dateFormater";
+
 import particleOptions from "../../stars.json";
 import Particles from "react-tsparticles";
 
 type TextForm = {
-  SpecificDate: string;
+  qtd_photos: string;
 };
 
 const ThirdPage: React.FC = () => {
-  const { OneDate, dataOneDate } = useApodContex();
-  const [erros, setErros] = React.useState("");
+  const { AleatoryDate, dataAleatoryDate } = useApodContex();
   const [loading, setLoading] = React.useState(false);
+
   const { register, handleSubmit, errors } = useForm<TextForm>();
 
   const SubmitForm = async (data: TextForm) => {
+    var count = Number(data.qtd_photos);
     setLoading(true);
-    var date = FormateDateInput(data.SpecificDate);
-    if (date === "O ano mínimo é 1996" || date === "Insira um ano válido") {
-      setErros(date);
-    } else {
-      setErros("");
-      var dataObj = {
-        date: date,
-        api_key: MyKey(),
-      };
-      await OneDate(dataObj);
-    }
+    var dataObj = {
+      count: count,
+      api_key: MyKey(),
+    };
+    await AleatoryDate(dataObj);
     setLoading(false);
   };
 
@@ -59,27 +52,27 @@ const ThirdPage: React.FC = () => {
         style={{ width: "100vw", zIndex: -1000, position: "absolute" }}
       />
       <Container>
-        <FormContent onSubmit={handleSubmit(SubmitForm)} id="SecondContent">
+        <FormContent onSubmit={handleSubmit(SubmitForm)}>
           <div>
-            <Title>Data:</Title>
+            <Title>Número de fotos: </Title>
             <div>
               <MyInput
                 type="text"
-                id="SpecificDate"
-                name="SpecificDate"
-                placeholder="Ex: 17/11/2002"
+                id="qtd_photos"
+                name="qtd_photos"
+                placeholder="Ex: 8"
                 ref={register({
-                  minLength: {
-                    value: 10,
-                    message: "Insira no mínimo 10 caractéres",
+                  min: {
+                    value: 1,
+                    message: "Insira no mínimo 1",
                   },
-                  maxLength: {
-                    value: 10,
-                    message: "Insira no máximo 10 caractéres",
+                  max: {
+                    value: 20,
+                    message: "Insira no máximo 20",
                   },
                   required: {
                     value: true,
-                    message: "Insira uma data",
+                    message: "Insira um número",
                   },
                 })}
               />
@@ -87,32 +80,27 @@ const ThirdPage: React.FC = () => {
                 <ArrowIcon />
               </button>
             </div>
-            <div className="text-danger" style={{ marginLeft: 10 }}>
-              {erros}
-            </div>
-            {errors.SpecificDate &&
-              (errors.SpecificDate as any).type === "minLength" && (
+            {errors.qtd_photos && (errors.qtd_photos as any).type === "min" && (
+              <div className="text-danger" style={{ marginLeft: 10 }}>
+                {(errors.qtd_photos as any).message}
+              </div>
+            )}
+            {errors.qtd_photos && (errors.qtd_photos as any).type === "max" && (
+              <div className="text-danger" style={{ marginLeft: 10 }}>
+                {(errors.qtd_photos as any).message}
+              </div>
+            )}
+            {errors.qtd_photos &&
+              (errors.qtd_photos as any).type === "required" && (
                 <div className="text-danger" style={{ marginLeft: 10 }}>
-                  {(errors.SpecificDate as any).message}
-                </div>
-              )}
-            {errors.SpecificDate &&
-              (errors.SpecificDate as any).type === "maxLength" && (
-                <div className="text-danger" style={{ marginLeft: 10 }}>
-                  {(errors.SpecificDate as any).message}
-                </div>
-              )}
-            {errors.SpecificDate &&
-              (errors.SpecificDate as any).type === "required" && (
-                <div className="text-danger" style={{ marginLeft: 10 }}>
-                  {(errors.SpecificDate as any).message}
+                  {(errors.qtd_photos as any).message}
                 </div>
               )}
           </div>
         </FormContent>
-        {!dataOneDate ? (
+        {!dataAleatoryDate ? (
           <>
-            {!loading && erros === "" ? (
+            {!loading ? (
               ""
             ) : (
               <>
@@ -140,25 +128,35 @@ const ThirdPage: React.FC = () => {
             {!loading ? (
               <>
                 <ImageContent>
-                  <TextContent>
-                    <TitleCarousel>
-                      {dataOneDate.title} - {FormateDateApi(dataOneDate.date)}
-                    </TitleCarousel>
-                    <Text>{dataOneDate.explanation}</Text>
-                  </TextContent>
-                  {dataOneDate?.media_type === "video" ? (
-                    <VideoContent>
-                      <MyVideo
-                        src={dataOneDate?.url}
-                        scrolling="no"
-                        frameBorder="0"
-                        allowTransparency={true}
-                        allow="encrypted-media"
-                      />
-                    </VideoContent>
-                  ) : (
-                    <MyImage src={dataOneDate?.url} alt="APOD of the day" />
-                  )}
+                  <Carousel interval={7000}>
+                    {dataAleatoryDate?.map((information: any) => (
+                      <Carousel.Item key={information.date}>
+                        <TextContent>
+                          <TitleCarousel>
+                            {information.title} -{" "}
+                            {FormateDateApi(information.date)}
+                          </TitleCarousel>
+                          <Text>{information.explanation}</Text>
+                        </TextContent>
+                        {information.media_type === "video" ? (
+                          <VideoContent>
+                            <MyVideo
+                              src={information.url}
+                              scrolling="no"
+                              frameBorder="0"
+                              allowTransparency={true}
+                              allow="encrypted-media"
+                            />
+                          </VideoContent>
+                        ) : (
+                          <MyImage
+                            src={information.url}
+                            alt="APOD aleatory date"
+                          />
+                        )}
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
                 </ImageContent>
               </>
             ) : (
